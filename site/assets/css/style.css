@@ -978,7 +978,8 @@ html:active-view-transition-type(back)::view-transition-new(*):only-child {
   .clients { --u: calc(100vw / 400); height: 130px; }
 
   .about { grid-template-columns: 1fr; gap: 28px; }
-  .about__photo { min-height: 0; aspect-ratio: 324 / 368; }
+  /* explicit width: Safari does not stretch a box whose size comes only from aspect-ratio */
+  .about__photo { width: 100%; min-height: 0; aspect-ratio: 324 / 368; }
   .about__lead { font-size: 17px; }
   .about__text { column-count: 1; margin-top: 20px; font-size: 15px; line-height: 1.6; }
   .about__text p + p { margin-top: 1.1em; }
