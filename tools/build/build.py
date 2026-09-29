@@ -180,11 +180,16 @@ def copy_static():
         if not dst.exists():
             shutil.copy(src, dst)
     # favicons + og image
-    fav = Image.open(ROOT / 'logos/RZN_512x512.png').convert('RGBA')
-    for size, name in [(32, 'favicon-32.png'), (180, 'apple-touch-icon.png'), (192, 'icon-192.png'), (512, 'icon-512.png')]:
-        bg = Image.new('RGBA', fav.size, (0, 0, 0, 255))
-        bg.alpha_composite(fav)
-        bg.convert('RGB').resize((size, size), Image.LANCZOS).save(A / 'icons' / name, optimize=True)
+    # logos/favicon.png: rounded black square with transparent corners. Browser icons keep the
+    # transparency; the Apple touch icon gets a solid background because iOS rounds it itself.
+    fav = Image.open(ROOT / 'logos/favicon.png').convert('RGBA')
+    for size, name in [(32, 'favicon-32.png'), (192, 'icon-192.png'), (512, 'icon-512.png')]:
+        fav.resize((size, size), Image.LANCZOS).save(A / 'icons' / name, optimize=True)
+    bg = Image.new('RGBA', fav.size, (0, 0, 0, 255))
+    bg.alpha_composite(fav)
+    bg.convert('RGB').resize((180, 180), Image.LANCZOS).save(A / 'icons' / 'apple-touch-icon.png', optimize=True)
+    # classic /favicon.ico at the site root, which some browsers and crawlers request directly
+    fav.save(SITE / 'favicon.ico', sizes=[(16, 16), (32, 32), (48, 48)])
     og = Image.new('RGB', (1200, 630), (0, 0, 0))
     logo = load(ROOT / 'logos/RZN-3D.png')
     logo.thumbnail((1080, 520), Image.LANCZOS)
@@ -244,6 +249,7 @@ def head(page):
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="RZN logo">
 <meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="icon" href="/assets/icons/favicon-32.png" sizes="32x32" type="image/png">
 <link rel="icon" href="/assets/icons/icon-192.png" sizes="192x192" type="image/png">
 <link rel="apple-touch-icon" href="/assets/icons/apple-touch-icon.png">
