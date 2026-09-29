@@ -1,0 +1,9 @@
+# macOS
+.DS_Store
+
+# Original source files (large). The website in site/ does not need them.
+# They are only used when rebuilding with tools/build/build.py.
+media/
+
+# Python
+__pycache__/
