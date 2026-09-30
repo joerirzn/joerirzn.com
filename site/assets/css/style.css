@@ -542,7 +542,16 @@ a.tile:hover video { opacity: 0.75; }
 .explore a:hover { color: var(--fg-hover); }
 
 /* ------------------------------------------------------------------ 404 */
-.notfound { min-height: 60vh; display: grid; place-content: center; gap: 12px; text-align: center; }
+/* 404: one screen, content centred, no footer and no scrolling */
+html:has(body.page-notfound), body.page-notfound { height: 100%; overflow: hidden; }
+html body.page-notfound main { padding: 0; }
+body.page-notfound .site-footer { display: none; }
+.notfound {
+  height: 100vh; height: 100svh;
+  display: grid; place-content: center; gap: 12px;
+  padding: 0 24px;
+  text-align: center;
+}
 .notfound h1 { font-size: max(calc(48 * var(--u)), 40px); }
 .notfound a { text-decoration: underline; }
 
