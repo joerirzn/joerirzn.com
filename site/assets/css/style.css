@@ -1044,7 +1044,8 @@ html:active-view-transition-type(back)::view-transition-new(*):only-child {
   .explore { margin-top: 40px; line-height: 1.2; }
 
   .site-contact { margin-top: 112px; padding-bottom: 88px; grid-template-columns: 1fr; scroll-margin-top: 64px; }
-  .page-home .site-contact { min-height: calc(100vh - var(--header-h) - 64px - var(--footer-h, 0px)); min-height: calc(100dvh - var(--header-h) - 64px - var(--footer-h, 0px)); }
+  /* phones: no extra space under Connect (the Connect link then simply scrolls to the bottom) */
+  .page-home .site-contact { min-height: 0; }
   .site-contact__socials { grid-column: 1; grid-row: auto; justify-content: flex-start; }
   body:not(.page-home) .site-footer { margin-top: 72px; }
   body.page-artworks .site-footer, body.page-3d .site-footer { margin-top: 64px; }
