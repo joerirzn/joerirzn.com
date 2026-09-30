@@ -531,7 +531,7 @@ home_main = f'''<section class="hero" aria-label="Intro">
 </section>'''
 
 write_page({'path': '/', 'slug': 'home',
-            'title': 'JOERIRZN – Joeri Roozen | Graphic & Brand Designer, 3D, Motion & Art Direction',
+            'title': 'JOERIRZN | Graphic Designer & Art Director',
             'desc': 'Portfolio of Joeri Roozen (Joeri RZN), a Dutch creative designer specializing in cover artwork, branding, motion, 3D and digital experiences for artists, labels and brands like Warner Music and Spinnin’ Records.',
             'preload': f'<link rel="preload" as="image" href="{hero[0][0]}" imagesrcset="{", ".join(f"{p} {w}w" for p, w, _ in hero)}" imagesizes="{sizes_attr(825, 88)}">\n',
             'jsonld': [{"@context": "https://schema.org", **PERSON},
@@ -557,7 +557,7 @@ art_main = f'''{page_head('Artworks', 'artworks')}
 </ul>
 <p class="counter">Over <span class="counter__num" data-artworks data-count="1600">1600</span> artworks made</p>
 </section>'''
-write_page({'path': '/artworks/', 'slug': 'artworks', 'title': 'Artworks – Cover Art & Single Artwork | JOERIRZN',
+write_page({'path': '/artworks/', 'slug': 'artworks', 'title': 'Artworks | JOERIRZN',
             'desc': art_desc, 'jsonld': [breadcrumb('Artworks', '/artworks/'), collection('Artworks', '/artworks/', art_desc)]},
            art_main)
 
@@ -702,7 +702,7 @@ pk_row2 = ''.join([
     ptile(LIVE / 'cyril-from-down-under-back.jpg', 'cyril-from-down-under-back', 'CYRIL – From Down Under To The World, vinyl sleeve back', 407, 221),
 ])
 pk_desc = 'Vinyl and physical packaging design by Joeri RZN, including Spinnin’ Sessions and CYRIL – From Down Under To The World.'
-write_page({'path': '/packaging/', 'slug': 'packaging', 'title': 'Packaging – Vinyl & Sleeve Design | JOERIRZN', 'desc': pk_desc,
+write_page({'path': '/packaging/', 'slug': 'packaging', 'title': 'Packaging | JOERIRZN', 'desc': pk_desc,
             'jsonld': [breadcrumb('Packaging', '/packaging/'), collection('Packaging', '/packaging/', pk_desc)]},
            page_head('Packaging', 'packaging') + f'''
 <section class="hrows" aria-label="Packaging">
@@ -744,7 +744,7 @@ three = [
         [198, 198, 198, 198], 248, wrap=True),
 ]
 d3_desc = '3D renders and animations by Joeri RZN: PlayStation 1, Game Boy music cartridges, Nocta dice, MP4 player, battery and Pokémon Game Boy Color.'
-write_page({'path': '/3d/', 'slug': '3d', 'title': '3D Projects – Renders & Animation | JOERIRZN', 'desc': d3_desc,
+write_page({'path': '/3d/', 'slug': '3d', 'title': '3D Projects | JOERIRZN', 'desc': d3_desc,
             'jsonld': [breadcrumb('3D Projects', '/3d/'), collection('3D Projects', '/3d/', d3_desc)]},
            page_head('3D Projects', '3d') + '\n<section class="project project--flush" aria-label="3D projects">\n' + '\n'.join(three)
            + '\n</section>\n<p class="explore">Explore more 3D work in <a href="/artworks/"><strong>artwork projects</strong></a></p>')
