@@ -47,6 +47,14 @@
   });
   addEventListener('pageshow', () => doc.documentElement.classList.remove('vt-leaving'));
 
+  // Footer height as a CSS variable, used to let Connect + footer fill the last screen (see CSS)
+  const footerEl = doc.querySelector('.site-footer');
+  if (footerEl) {
+    const setFooterH = () => doc.documentElement.style.setProperty('--footer-h', `${footerEl.offsetHeight}px`);
+    setFooterH();
+    addEventListener('resize', setFooterH);
+  }
+
   // Smooth scrolling for in-page links, but only once the page has loaded (see CSS)
   const enableSmooth = () => requestAnimationFrame(() => doc.documentElement.classList.add('smooth-scroll'));
   if (doc.readyState === 'complete') enableSmooth(); else addEventListener('load', enableSmooth);

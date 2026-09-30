@@ -291,8 +291,9 @@ body:not(.page-home) main { padding-top: calc(52 * var(--u)); }
 .card__lock svg { width: 100%; height: auto; }
 
 /* ------------------------------------------------------------------ home sections */
-.home-section { width: var(--w); margin: 0 auto; padding-top: calc(110 * var(--u)); scroll-margin-top: calc(-40 * var(--u)); }
-.hero + .home-section { padding-top: calc(70 * var(--u)); }
+/* menu links land every section title the same distance (30u) below the header */
+.home-section { width: var(--w); margin: 0 auto; padding-top: calc(110 * var(--u)); scroll-margin-top: calc(-80 * var(--u)); }
+.hero + .home-section { padding-top: calc(70 * var(--u)); scroll-margin-top: calc(-40 * var(--u)); }
 
 .section-head {
   display: flex; align-items: center;
@@ -564,6 +565,12 @@ body.page-notfound .site-footer { display: none; }
   display: grid;
   grid-template-columns: 1fr auto;
   column-gap: calc(40 * var(--u));
+}
+.site-contact { scroll-margin-top: calc(30 * var(--u)); align-content: start; }  /* extra min-height goes below the content */
+/* Connect + footer fill at least one screen, so the Connect link can scroll it to the same spot */
+.page-home .site-contact {
+  min-height: calc(100vh - var(--header-h) - 30 * var(--u) - var(--footer-h, 0px));
+  min-height: calc(100dvh - var(--header-h) - 30 * var(--u) - var(--footer-h, 0px));
 }
 .site-contact .section-head { grid-column: 1 / -1; margin-bottom: calc(20 * var(--u)); }
 .site-contact__lead { grid-column: 1; max-width: calc(420 * var(--u)); }
@@ -980,8 +987,8 @@ html:active-view-transition-type(back)::view-transition-new(*):only-child {
   .card__meta { right: 18px; bottom: 18px; }
   .card__lock { width: 22px; }
 
-  .home-section { padding-top: 112px; scroll-margin-top: 0; }
-  .hero + .home-section { padding-top: 64px; }
+  .home-section { padding-top: 112px; scroll-margin-top: -48px; }
+  .hero + .home-section { padding-top: 64px; scroll-margin-top: 0; }
   .section-head { gap: 10px; margin-bottom: 20px; }
   .section-head__title { font-size: 18px; }
   .clients { --u: calc(100vw / 400); height: 130px; }
@@ -1036,7 +1043,8 @@ html:active-view-transition-type(back)::view-transition-new(*):only-child {
 
   .explore { margin-top: 40px; line-height: 1.2; }
 
-  .site-contact { margin-top: 112px; padding-bottom: 88px; grid-template-columns: 1fr; }
+  .site-contact { margin-top: 112px; padding-bottom: 88px; grid-template-columns: 1fr; scroll-margin-top: 64px; }
+  .page-home .site-contact { min-height: calc(100vh - var(--header-h) - 64px - var(--footer-h, 0px)); min-height: calc(100dvh - var(--header-h) - 64px - var(--footer-h, 0px)); }
   .site-contact__socials { grid-column: 1; grid-row: auto; justify-content: flex-start; }
   body:not(.page-home) .site-footer { margin-top: 72px; }
   body.page-artworks .site-footer, body.page-3d .site-footer { margin-top: 64px; }
