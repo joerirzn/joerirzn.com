@@ -373,10 +373,11 @@ body:not(.page-home) main { padding-top: calc(52 * var(--u)); }
   line-height: 1.65;
 }
 .about__text p + p { margin-top: 1em; }
+.about__text { margin-bottom: calc(30 * var(--u)); }
 .about__stats {
   display: grid; grid-template-columns: repeat(3, 1fr);
   gap: calc(16 * var(--u));
-  margin-top: calc(30 * var(--u));
+  margin-top: auto;  /* stats + tags sit together at the bottom, level with the photo */
   padding-top: calc(18 * var(--u));
   border-top: 1px solid var(--line);
 }
@@ -391,7 +392,6 @@ body:not(.page-home) main { padding-top: calc(52 * var(--u)); }
 .about__skills {
   display: flex; flex-wrap: wrap;
   gap: calc(6 * var(--u));
-  margin-top: auto;
   padding-top: calc(28 * var(--u));
 }
 .about__skills li {
@@ -997,7 +997,7 @@ html:active-view-transition-type(back)::view-transition-new(*):only-child {
   /* explicit width: Safari does not stretch a box whose size comes only from aspect-ratio */
   .about__photo { width: 100%; min-height: 0; aspect-ratio: 324 / 368; }
   .about__lead { font-size: 17px; }
-  .about__text { column-count: 1; margin-top: 20px; font-size: 15px; line-height: 1.6; }
+  .about__text { column-count: 1; margin-top: 20px; margin-bottom: 0; font-size: 15px; line-height: 1.6; }
   .about__text p + p { margin-top: 1.1em; }
   .about__stats { gap: 12px; margin-top: 26px; padding-top: 18px; }
   .about__stats strong { font-size: 26px; }

@@ -514,11 +514,11 @@ home_main = f'''<section class="hero" aria-label="Intro">
   <div class="about">
     <div class="about__photo">{img_tag(portrait, 'Portrait of Joeri Roozen (Joeri RZN) wearing a green leather jacket', 324, 88)}</div>
     <div class="about__body">
-      <p class="about__lead">My name is Joeri Roozen (JOERI RZN), a Dutch creative designer specializing in visual design, branding, motion, 3D and digital experiences.</p>
+      <p class="about__lead">My name is Joeri Roozen (JOERI RZN). I’m a Dutch creative designer specializing in branding, motion, 3D and digital experiences.</p>
       <div class="about__text">
-        <p>For over five years, I’ve worked with artists, labels and brands such as Warner Music, Spinnin’ Records and many others, creating visuals across a wide range of creative projects.</p>
-        <p>What started over 12 years ago as curiosity inside Photoshop grew into a creative career built around constantly evolving, experimenting and pushing ideas further with every project.</p>
-        <p>From artworks and visualizers to branding, motion and creative concepts. I focus on creating visuals that feel distinct, modern and purposeful.</p>
+        <p>For over five years I’ve created visuals for artists, labels and brands like Warner Music and Spinnin’ Records.</p>
+        <p>What started 12 years ago as curiosity in Photoshop grew into a career built on experimenting and pushing every idea further.</p>
+        <p>From artworks and visualizers to branding and motion, I create visuals that feel distinct and purposeful.</p>
       </div>
       <ul class="about__stats">
         <li><strong>5+</strong><span>Years with artists, labels &amp; brands</span></li>
