@@ -1016,10 +1016,13 @@ html:active-view-transition-type(back)::view-transition-new(*):only-child {
     grid-template-rows: repeat(2, minmax(0, 1fr));
     aspect-ratio: var(--mar);
   }
-  /* PGLTM on phones: three equal portrait tiles per row instead of narrow/wide/narrow.
-     Explicit width because Safari won't stretch a grid item sized only by aspect-ratio. */
-  .row--thirds { grid-template-columns: repeat(3, 1fr); grid-template-rows: auto; aspect-ratio: auto; }
-  .row--thirds > * { width: 100%; aspect-ratio: 4 / 5; }
+  /* PGLTM on phones: its rows merge into one 3-column grid; narrow tiles are 4:5, wide tiles
+     (.tile--span2) take two columns at the same height. Explicit width because Safari won't
+     stretch a grid item sized only by aspect-ratio. */
+  .row-group { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--gap); }
+  .row-group > .row { display: contents; }
+  .row-group .row > * { width: 100%; aspect-ratio: 4 / 5; }
+  .row-group .row > .tile--span2 { grid-column: span 2; aspect-ratio: auto; }
   .row--stack {
     grid-template-columns: 1fr;
     grid-template-rows: repeat(2, minmax(0, 1fr));
