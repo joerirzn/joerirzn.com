@@ -1016,6 +1016,10 @@ html:active-view-transition-type(back)::view-transition-new(*):only-child {
     grid-template-rows: repeat(2, minmax(0, 1fr));
     aspect-ratio: var(--mar);
   }
+  /* PGLTM on phones: three equal portrait tiles per row instead of narrow/wide/narrow.
+     Explicit width because Safari won't stretch a grid item sized only by aspect-ratio. */
+  .row--thirds { grid-template-columns: repeat(3, 1fr); grid-template-rows: auto; aspect-ratio: auto; }
+  .row--thirds > * { width: 100%; aspect-ratio: 4 / 5; }
   .row--stack {
     grid-template-columns: 1fr;
     grid-template-rows: repeat(2, minmax(0, 1fr));

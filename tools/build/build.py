@@ -579,15 +579,15 @@ def poster_for(video_path, folder, name, bw, bh):
 pg = section('Pretty Girls Like Trap Music', [
     row([tile(P / '1_Valentines Cover.jpg', 'branding', 'PGLTM Valentine’s cover – pink heart lollipop', 198, 245, 21),
          tile(P / '2_PGLTM-Posters_01.jpg', 'branding', 'Pretty Girls Like Trap Music event posters', 408, 245, 44),
-         tile(P / '3_Hot Girl Dump.jpg', 'branding', 'PGLTM “Hot Girl Dump” social post', 196, 245, 21)], [198, 408, 196], 245),
+         tile(P / '3_Hot Girl Dump.jpg', 'branding', 'PGLTM “Hot Girl Dump” social post', 196, 245, 21)], [198, 408, 196], 245, cls='row--thirds'),
     row([tile(P / '4_Imani.jpg', 'branding', 'PGLTM editorial layouts – Imani’s Y2K, what do I wear', 407, 253, 44),
          tile(P / '5_Bathroom Talks.jpg', 'branding', 'PGLTM “Bathroom Talks” artwork', 199, 253, 21),
          video_tile('pgltm-website.mp4', poster_for(None, 'branding', 'pgltm-website', 196, 253),
                     'Pretty Girls Like Trap Music website', 196, 21, href='https://prettygirlsliketrapmusic.nl/')],
-        [407, 199, 196], 253),
+        [407, 199, 196], 253, cls='row--thirds'),
     row([tile(P / '7_Zalando Posters.jpg', 'branding', 'Zalando × PGLTM posters', 198, 248, 21),
          tile(P / '8_Zalando-Cars_01.jpg', 'branding', 'Zalando × PGLTM taxi campaign – “our space to be”', 408, 248, 44),
-         tile(P / '9_PGR.jpg', 'branding', 'Pretty Girl Rotation playlist artwork', 198, 248, 21)], [198, 408, 198], 248),
+         tile(P / '9_PGR.jpg', 'branding', 'Pretty Girl Rotation playlist artwork', 198, 248, 21)], [198, 408, 198], 248, cls='row--thirds'),
 ], 'pgltm')
 
 bb = [(IJ / f'Innerjoin Brandbook 0{i}.png', f'Innerjoin brandbook page {i}') for i in (1, 2, 5, 4, 3, 6)]
