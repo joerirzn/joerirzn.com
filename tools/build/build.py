@@ -700,8 +700,8 @@ pk_spinnin = section('Spinnin’ Sessions', [
         [287, 287, 230], 230, cls='row--pk-trio'),
 ], 'spinnin-sessions')
 pk_cyril = section('CYRIL – From Down Under To The World', [
-    row([tile(LIVE / 'cyril-from-down-under-vinyl.jpg', 'packaging', 'CYRIL – From Down Under To The World, white double vinyl', 824, 449, 88)], [824], 449),
-    row([tile(LIVE / 'cyril-from-down-under-front.jpg', 'packaging', 'CYRIL – From Down Under To The World, vinyl sleeve front', 407, 221, 88),
+    row([tile(LIVE / 'cyril-from-down-under-front.jpg', 'packaging', 'CYRIL – From Down Under To The World, vinyl sleeve front', 824, 447, 88)], [824], 447),
+    row([tile(LIVE / 'cyril-from-down-under-vinyl.jpg', 'packaging', 'CYRIL – From Down Under To The World, white double vinyl', 407, 222, 88),
          tile(LIVE / 'cyril-from-down-under-back.jpg', 'packaging', 'CYRIL – From Down Under To The World, vinyl sleeve back', 407, 221, 88)],
         [407, 407], 221, cls='row--pk-pair'),
 ], 'cyril')
