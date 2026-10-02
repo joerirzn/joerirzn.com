@@ -454,7 +454,7 @@ a.tile:hover video { opacity: 0.75; }
 
 .project { width: var(--w); margin: calc(28 * var(--u)) auto 0; }
 .page-head + .project { margin-top: calc(58 * var(--u)); }
-.project--flush { margin-top: calc(50 * var(--u)) !important; }
+.project--flush { margin-top: calc(58 * var(--u)) !important; }  /* banner -> content, same on every category page */
 .section-label {
   display: flex; align-items: center;
   gap: calc(12 * var(--u));
@@ -482,7 +482,7 @@ a.tile:hover video { opacity: 0.75; }
 .hrow + .project--head { margin-top: calc(28 * var(--u)); }  /* same as between Branding projects */
 
 /* ------------------------------------------------------------------ artworks */
-.art-grid-wrap { width: var(--w); margin: calc(50 * var(--u)) auto 0; }
+.art-grid-wrap { width: var(--w); margin: calc(58 * var(--u)) auto 0; }
 .art-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: var(--gap); }
 .art-grid li {
   position: relative;
@@ -498,7 +498,7 @@ a.tile:hover video { opacity: 0.75; }
 /* ------------------------------------------------------------------ video */
 .video-grid {
   width: var(--w);
-  margin: calc(30 * var(--u)) auto 0;
+  margin: calc(58 * var(--u)) auto 0;
   display: grid; grid-template-columns: 1fr 1fr;
   gap: var(--gap);
 }
@@ -1026,7 +1026,7 @@ html:active-view-transition-type(back)::view-transition-new(*):only-child {
 
   .project { margin-top: 28px; }
   .page-head + .project { margin-top: 32px; }
-  .project--flush { margin-top: 24px !important; }
+  .project--flush { margin-top: 32px !important; }
   .section-label { gap: 12px; margin: 0 0 22px; line-height: 12px; }
   .row--wrap {
     grid-template-columns: 1fr 1fr;
@@ -1046,11 +1046,11 @@ html:active-view-transition-type(back)::view-transition-new(*):only-child {
     aspect-ratio: 407 / 506;
   }
 
-  .art-grid-wrap { margin-top: 24px; }
+  .art-grid-wrap { margin-top: 32px; }
   .art-grid { grid-template-columns: repeat(3, 1fr); }
   .counter { margin-top: 28px; padding: 0; line-height: 1.2; }
 
-  .video-grid { grid-template-columns: 1fr; margin-top: 24px; }
+  .video-grid { grid-template-columns: 1fr; margin-top: 32px; }
 
   /* packaging on phones: a calm grid instead of sideways scrolling. Wide shots span the full
      width, the two sleeves with the same ratio sit side by side; nothing is cropped. */
