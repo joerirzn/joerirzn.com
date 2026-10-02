@@ -195,10 +195,10 @@ button { font: inherit; color: inherit; }
 .site-menu a:hover { color: var(--fg-hover); }
 
 /* ------------------------------------------------------------------ quick contact
-   Floats bottom right like the menu (same pill, blur and line), lined up with the menu's right edge.
+   Floats in the bottom right corner like the menu (same pill, blur and line), as far from the edges as the menu is from the top.
    The button opens a small form above it; it steps aside for the footer, the phone menu and the lightbox. */
 .quick-contact {
-  position: fixed; inset: auto 0 calc(10 * var(--u)); z-index: 190;
+  position: fixed; inset: auto calc(10 * var(--u)) calc(10 * var(--u)) auto; z-index: 190;
   pointer-events: none;
   transition: opacity 0.35s var(--ease), visibility 0s;
 }
@@ -207,7 +207,6 @@ button { font: inherit; color: inherit; }
   transition: opacity 0.35s var(--ease), visibility 0s linear 0.35s;
 }
 .quick-contact__inner {
-  width: var(--w); margin: 0 auto;
   display: flex; flex-direction: column; align-items: flex-end; gap: calc(8 * var(--u));
 }
 .quick-contact__toggle, .quick-contact__panel {
@@ -232,7 +231,7 @@ button { font: inherit; color: inherit; }
 .quick-contact__toggle svg { width: auto; height: max(calc(7 * var(--u)), 9px); }
 
 .quick-contact__panel {
-  width: min(calc(260 * var(--u)), 100%);
+  width: min(calc(260 * var(--u)), calc(100vw - 20 * var(--u)));
   max-height: calc(100vh - 80 * var(--u));
   max-height: calc(100dvh - 80 * var(--u));
   overflow-y: auto;
@@ -1079,11 +1078,11 @@ html:active-view-transition-type(back)::view-transition-new(*):only-child {
   }
 
   .site-header { top: 8px; }
-  .quick-contact { bottom: calc(8px + env(safe-area-inset-bottom)); }
+  .quick-contact { right: calc(8px + env(safe-area-inset-right)); bottom: calc(8px + env(safe-area-inset-bottom)); }
   .quick-contact__inner { gap: 8px; }
   .quick-contact__toggle { height: 38px; padding: 0 16px; gap: 8px; font-size: 12px; }
   .quick-contact__toggle svg { height: 10px; }
-  .quick-contact__panel { width: 100%; padding: 18px; max-height: calc(100dvh - 120px); }
+  .quick-contact__panel { width: calc(100vw - 16px); padding: 18px; max-height: calc(100dvh - 120px); }
   .qc { gap: 8px; }
   .qc__lead { margin-bottom: 4px; }
   .qc input, .qc textarea { padding: 10px 14px; font-size: 16px; border-radius: 12px; }  /* 16px: iOS does not zoom in on focus */
