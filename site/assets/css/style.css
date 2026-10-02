@@ -102,15 +102,23 @@ button { font: inherit; color: inherit; }
 }
 
 /* ------------------------------------------------------------------ header + menu */
+/* floating pill: hovers over the page with rounded ends, the work scrolls by blurred behind it */
 .site-header {
-  position: fixed; inset: 0 0 auto; z-index: 200;
-  height: var(--header-h);
-  background: var(--bg);
+  position: fixed; inset: calc(10 * var(--u)) 0 auto; z-index: 200;
+  pointer-events: none;
 }
 .site-header__inner {
-  width: var(--w); height: 100%;
+  width: var(--w); height: calc(32 * var(--u));
   margin: 0 auto;
+  padding: 0 calc(16 * var(--u));
   display: flex; align-items: center; justify-content: space-between;
+  border-radius: 999px;
+  background: rgba(16, 16, 16, 0.8);
+  -webkit-backdrop-filter: blur(14px);
+  backdrop-filter: blur(14px);
+  border: 1px solid var(--line);
+  box-shadow: 0 calc(12 * var(--u)) calc(40 * var(--u)) rgba(0, 0, 0, 0.45);
+  pointer-events: auto;
 }
 .site-header__logo img {
   width: calc(46 * var(--u)); height: auto;
@@ -838,7 +846,7 @@ html.lightbox-open { overflow: hidden; }
    so the browser morphs one into the other ("unfolds") while the rest of the page fades. */
 @view-transition { navigation: auto; }
 
-.site-header { view-transition-name: site-header; }
+.site-header__inner { view-transition-name: site-header; }  /* on the pill itself: a name on its parent would stop the backdrop blur from seeing the page */
 
 ::view-transition-group(*) {
   animation-duration: 0.7s;
@@ -983,6 +991,8 @@ html:active-view-transition-type(back)::view-transition-new(*):only-child {
     --fs-s: 13px;
   }
 
+  .site-header { top: 8px; }
+  .site-header__inner { height: 46px; padding: 0 18px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45); }
   .site-header__logo img { width: 56px; }
   .site-nav { display: none; }
   .menu-toggle { display: flex; margin-right: -8px; }
