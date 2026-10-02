@@ -209,7 +209,7 @@ def icon_svg(file, w, h):
 
 ICON = {}
 TRI = ('<svg viewBox="0 0 15 12" aria-hidden="true" focusable="false"><path d="M1.59 9.46A1.66 1.66 0 0 0 3 12h9a1.66 1.66 0 0 0 '
-       '1.41-2.54L9.09 2.54a1.88 1.88 0 0 0-3.18 0Z" fill="none" stroke="currentColor" stroke-width="1" '
+       '1.41-2.54L9.09 2.54a1.88 1.88 0 0 0-3.18 0Z" fill="none" stroke="currentColor" stroke-width="0.6" '
        'vector-effect="non-scaling-stroke" transform="translate(0 -.5)"/></svg>')
 
 
