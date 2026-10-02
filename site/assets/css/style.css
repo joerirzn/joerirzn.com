@@ -459,7 +459,7 @@ body:not(.page-home) main { padding-top: calc(66 * var(--u)); }  /* floating men
 a.tile img, a.tile video { transition: opacity 0.35s var(--ease); }
 a.tile:hover video { opacity: 0.75; }
 
-.project { width: var(--w); margin: calc(40 * var(--u)) auto 0; }  /* spacing scale: 10 / 30 / 40 / 60 / 120 (desktop), 8 / 24 / 32 / 32 / 80 (phone) */
+.project { width: var(--w); margin: calc(30 * var(--u)) auto 0; }  /* category spacing: 10 between images, 30 everywhere else (desktop); 8 / 24 on phones */
 .page-head + .project { margin-top: calc(30 * var(--u)); }
 .project--flush { margin-top: calc(30 * var(--u)) !important; }  /* banner -> content: same as title -> images, on every category page */
 .section-label {
@@ -1032,7 +1032,7 @@ html:active-view-transition-type(back)::view-transition-new(*):only-child {
 
   .page-head__back { left: 16px; top: 16px; width: 22px; height: 17px; }
 
-  .project { margin-top: 32px; }
+  .project { margin-top: 24px; }
   .page-head + .project { margin-top: 24px; }
   .project--flush { margin-top: 24px !important; }
   .section-label { gap: 12px; margin: 0 0 24px; line-height: 12px; }
