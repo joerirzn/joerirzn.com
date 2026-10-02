@@ -291,8 +291,8 @@ def header():
 ''' + quick_contact()
 
 
-QC_STEPS = ('Your business', 'About you', 'Your message')
-QC_TYPES = ('Artist / DJ', 'Record label', 'Events / Club', 'Brand / Company', 'Agency', 'Other')
+QC_STEPS = ('Nice to meet you', 'Tell me a bit more', 'Your message')
+QC_TYPES = ('Artist / DJ', 'Record label', 'Events / Club', 'Brand / Company', 'Agency', 'Just me', 'Other')
 QC_TOPICS = ('Artwork', 'Branding', 'Video & Motion', 'Packaging', '3D', 'Something else')
 
 
@@ -314,18 +314,18 @@ def quick_contact():
         <div class="qc__progress" aria-hidden="true">{'<i></i>' * len(QC_STEPS)}</div>
         <p class="qc__lead">Questions, ideas or just saying hi. I’ll get back to you soon.</p>
         <div class="qc__step" role="group" aria-labelledby="qc-s1">
-          <p class="qc__label" id="qc-s1">Your business</p>
-          <label class="visually-hidden" for="qc-business">Business name</label>
-          <input id="qc-business" name="business" type="text" autocomplete="organization" placeholder="Business name (optional)">
-          <p class="qc__sub" id="qc-type">Type of business</p>
-          <div class="qc__chips" role="radiogroup" aria-labelledby="qc-type">{chips('business_type', 'radio', QC_TYPES)}</div>
-        </div>
-        <div class="qc__step" role="group" aria-labelledby="qc-s2" hidden>
-          <p class="qc__label" id="qc-s2">About you</p>
+          <p class="qc__label" id="qc-s1">Nice to meet you</p>
           <label class="visually-hidden" for="qc-name">Name</label>
           <input id="qc-name" name="name" type="text" autocomplete="name" placeholder="Name" required>
           <label class="visually-hidden" for="qc-email">Email</label>
           <input id="qc-email" name="email" type="email" autocomplete="email" placeholder="Email" required>
+        </div>
+        <div class="qc__step" role="group" aria-labelledby="qc-s2" hidden>
+          <p class="qc__label" id="qc-s2">Tell me a bit more</p>
+          <label class="visually-hidden" for="qc-business">Company or project</label>
+          <input id="qc-business" name="business" type="text" autocomplete="organization" placeholder="Company or project (optional)">
+          <p class="qc__sub" id="qc-type">What describes you best?</p>
+          <div class="qc__chips" role="radiogroup" aria-labelledby="qc-type">{chips('business_type', 'radio', QC_TYPES)}</div>
         </div>
         <div class="qc__step" role="group" aria-labelledby="qc-s3" hidden>
           <p class="qc__label" id="qc-s3">Your message</p>

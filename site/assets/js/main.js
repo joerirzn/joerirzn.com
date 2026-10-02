@@ -240,8 +240,8 @@
       }
       const a = answers();
       const details = [
-        ['Name', a.name], ['Email', a.email], ['Business', a.business],
-        ['Type of business', a.type], ['About', a.topics],
+        ['Name', a.name], ['Email', a.email], ['Company or project', a.business],
+        ['Describes them best', a.type], ['About', a.topics],
       ].filter(([, v]) => v);
       if (!key) {
         const subject = `Message from ${a.name}${a.business ? ` (${a.business})` : ''}`;

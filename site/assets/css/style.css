@@ -227,8 +227,9 @@ button { font: inherit; color: inherit; }
   cursor: pointer;
   transition: color 0.2s var(--ease), border-color 0.2s var(--ease);
 }
-.quick-contact__toggle:hover, .quick-contact__toggle:focus-visible,
+.quick-contact__toggle:focus-visible,
 .quick-contact.is-open .quick-contact__toggle { color: var(--fg-hover); border-color: rgba(255, 255, 255, 0.35); }
+@media (hover: hover) { .quick-contact__toggle:hover { color: var(--fg-hover); border-color: rgba(255, 255, 255, 0.35); } }
 /* "available" dot: a small green light with a soft pulse */
 .quick-contact__dot {
   position: relative; flex: none;
@@ -313,7 +314,7 @@ button { font: inherit; color: inherit; }
   cursor: pointer;
   transition: color 0.2s var(--ease), border-color 0.2s var(--ease), background-color 0.2s var(--ease);
 }
-.qc__chip:hover span { color: var(--fg-hover); border-color: rgba(255, 255, 255, 0.35); }
+@media (hover: hover) { .qc__chip:hover span { color: var(--fg-hover); border-color: rgba(255, 255, 255, 0.35); } }  /* hover only with a mouse: taps on phones would leave it stuck */
 .qc__chip input:checked + span { background: #fff; border-color: #fff; color: #000; }
 .qc__chip input:focus-visible + span { outline: 1px solid #fff; outline-offset: 2px; }
 
@@ -330,7 +331,8 @@ button { font: inherit; color: inherit; }
   background: none; color: var(--fg);
   transition: color 0.2s var(--ease), border-color 0.2s var(--ease);
 }
-.qc__back:hover, .qc__back:focus-visible { color: var(--fg-hover); border-color: rgba(255, 255, 255, 0.35); }
+.qc__back:focus-visible { color: var(--fg-hover); border-color: rgba(255, 255, 255, 0.35); }
+@media (hover: hover) { .qc__back:hover { color: var(--fg-hover); border-color: rgba(255, 255, 255, 0.35); } }
 .qc__back[hidden] { display: none; }
 .qc__send {
   flex: 1;
@@ -338,7 +340,8 @@ button { font: inherit; color: inherit; }
   background: #fff; color: #000;
   transition: opacity 0.2s var(--ease);
 }
-.qc__send:hover, .qc__send:focus-visible { opacity: 0.85; }
+.qc__send:focus-visible { opacity: 0.85; }
+@media (hover: hover) { .qc__send:hover { opacity: 0.85; } }
 .qc__send:disabled { opacity: 0.5; cursor: default; }
 .qc__status:empty { display: none; }
 .qc__status { line-height: 1.35; }
