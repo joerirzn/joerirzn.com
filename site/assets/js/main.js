@@ -197,7 +197,7 @@
       const email = form.elements.email.value.trim();
       const message = form.elements.message.value.trim();
       if (!key) {
-        const subject = `Project inquiry from ${name}`;
+        const subject = `Message from ${name}`;
         const text = `${message}\n\n${name}\n${email}`;
         location.href = `mailto:contact@joerirzn.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(text)}`;
         return;
