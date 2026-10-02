@@ -700,10 +700,10 @@ pk_spinnin = section('Spinnin’ Sessions', [
         [287, 287, 230], 230, cls='row--pk-trio'),
 ], 'spinnin-sessions')
 pk_cyril = section('CYRIL – From Down Under To The World', [
-    row([tile(LIVE / 'cyril-from-down-under-front.jpg', 'packaging', 'CYRIL – From Down Under To The World, vinyl sleeve front', 824, 447, 88)], [824], 447),
-    row([tile(LIVE / 'cyril-from-down-under-vinyl.jpg', 'packaging', 'CYRIL – From Down Under To The World, white double vinyl', 407, 222, 88),
-         tile(LIVE / 'cyril-from-down-under-back.jpg', 'packaging', 'CYRIL – From Down Under To The World, vinyl sleeve back', 407, 221, 88)],
-        [407, 407], 221, cls='row--pk-pair'),
+    row([tile(LIVE / 'cyril-from-down-under-front.jpg', 'packaging', 'CYRIL – From Down Under To The World, vinyl sleeve front', 268, 146, 88),
+         tile(LIVE / 'cyril-from-down-under-vinyl.jpg', 'packaging', 'CYRIL – From Down Under To The World, white double vinyl', 268, 146, 88),
+         tile(LIVE / 'cyril-from-down-under-back.jpg', 'packaging', 'CYRIL – From Down Under To The World, vinyl sleeve back', 268, 146, 88)],
+        [268, 268, 268], 146, cls='row--pk-stack'),
 ], 'cyril')
 pk_desc = 'Vinyl and physical packaging design by Joeri RZN, including Spinnin’ Sessions and CYRIL – From Down Under To The World.'
 write_page({'path': '/packaging/', 'slug': 'packaging', 'title': 'Packaging | JOERIRZN', 'desc': pk_desc,
