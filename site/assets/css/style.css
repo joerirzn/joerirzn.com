@@ -452,13 +452,13 @@ body:not(.page-home) main { padding-top: calc(52 * var(--u)); }
 a.tile img, a.tile video { transition: opacity 0.35s var(--ease); }
 a.tile:hover video { opacity: 0.75; }
 
-.project { width: var(--w); margin: calc(28 * var(--u)) auto 0; }
-.page-head + .project { margin-top: calc(58 * var(--u)); }
-.project--flush { margin-top: calc(58 * var(--u)) !important; }  /* banner -> content, same on every category page */
+.project { width: var(--w); margin: calc(40 * var(--u)) auto 0; }  /* spacing scale: 10 / 30 / 40 / 60 / 120 (desktop), 8 / 24 / 32 / 32 / 80 (phone) */
+.page-head + .project { margin-top: calc(60 * var(--u)); }
+.project--flush { margin-top: calc(60 * var(--u)) !important; }  /* banner -> content, same on every category page */
 .section-label {
   display: flex; align-items: center;
   gap: calc(12 * var(--u));
-  margin: 0 0 calc(27 * var(--u)) calc(2 * var(--u));
+  margin: 0 0 calc(30 * var(--u)) calc(2 * var(--u));
   line-height: calc(9 * var(--u));
 }
 .section-label::after { content: ""; flex: 1; height: 1px; background: var(--line); }
@@ -479,10 +479,10 @@ a.tile:hover video { opacity: 0.75; }
 /* packaging: a project heading above each scrolling row */
 .project--head { margin-bottom: 0; }
 .hrows > .project--head:first-child { margin-top: 0; }
-.hrow + .project--head { margin-top: calc(28 * var(--u)); }  /* same as between Branding projects */
+.hrow + .project--head { margin-top: calc(40 * var(--u)); }  /* same as between Branding projects */
 
 /* ------------------------------------------------------------------ artworks */
-.art-grid-wrap { width: var(--w); margin: calc(58 * var(--u)) auto 0; }
+.art-grid-wrap { width: var(--w); margin: calc(60 * var(--u)) auto 0; }
 .art-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: var(--gap); }
 .art-grid li {
   position: relative;
@@ -498,7 +498,7 @@ a.tile:hover video { opacity: 0.75; }
 /* ------------------------------------------------------------------ video */
 .video-grid {
   width: var(--w);
-  margin: calc(58 * var(--u)) auto 0;
+  margin: calc(60 * var(--u)) auto 0;
   display: grid; grid-template-columns: 1fr 1fr;
   gap: var(--gap);
 }
@@ -534,7 +534,7 @@ a.tile:hover video { opacity: 0.75; }
 .yt iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
 
 /* ------------------------------------------------------------------ packaging (scroll-linked rows) */
-.hrows { margin-top: calc(58 * var(--u)); overflow: hidden; }  /* banner -> first title, same as Branding */
+.hrows { margin-top: calc(60 * var(--u)); overflow: hidden; }  /* banner -> first title, same as Branding */
 .hrow { width: var(--w); margin: 0 auto; }
 .hrow + .hrow { margin-top: calc(11 * var(--u)); }
 .hrow__track {
@@ -630,9 +630,9 @@ body.page-notfound .site-footer { display: none; }
 .site-footer { border-top: 1px solid var(--line); }
 /* category pages have no Connect block, so the footer keeps the section rhythm itself */
 body:not(.page-home) .site-contact { display: none; }
-body:not(.page-home) .site-footer { margin-top: calc(110 * var(--u)); }
+body:not(.page-home) .site-footer { margin-top: calc(120 * var(--u)); }
 /* pages that end on a small line of text (counter / explore link) sit closer to the footer */
-body.page-artworks .site-footer, body.page-3d .site-footer { margin-top: calc(66 * var(--u)); }
+body.page-artworks .site-footer, body.page-3d .site-footer { margin-top: calc(60 * var(--u)); }
 .site-footer__inner {
   width: var(--w);
   margin: 0 auto;
@@ -977,7 +977,7 @@ html:active-view-transition-type(back)::view-transition-new(*):only-child {
   :root {
     --u: calc(100vw / 540);
     --w: calc(100vw - 48px);
-    --gap: 6px;
+    --gap: 8px;
     --radius: 20px;
     --radius-s: 4px;
     --header-h: 42px;
@@ -1024,10 +1024,10 @@ html:active-view-transition-type(back)::view-transition-new(*):only-child {
 
   .page-head__back { left: 16px; top: 16px; width: 22px; height: 17px; }
 
-  .project { margin-top: 28px; }
+  .project { margin-top: 32px; }
   .page-head + .project { margin-top: 32px; }
   .project--flush { margin-top: 32px !important; }
-  .section-label { gap: 12px; margin: 0 0 22px; line-height: 12px; }
+  .section-label { gap: 12px; margin: 0 0 24px; line-height: 12px; }
   .row--wrap {
     grid-template-columns: 1fr 1fr;
     grid-template-rows: repeat(2, minmax(0, 1fr));
@@ -1059,20 +1059,20 @@ html:active-view-transition-type(back)::view-transition-new(*):only-child {
   .hrow + .hrow { margin-top: 6px; }
   .hrow__track, .hrow--reverse .hrow__track {
     --base: 0px;
-    display: grid; grid-template-columns: 1fr 1fr; gap: 6px;
+    display: grid; grid-template-columns: 1fr 1fr; gap: var(--gap);
     width: auto; padding: 0; transform: none;
   }
   .hrow__item { grid-column: span 2; width: auto; height: auto; aspect-ratio: var(--iw) / var(--ih); }
-  .hrow:first-child .hrow__item:nth-child(2), .hrow:first-child .hrow__item:nth-child(3) { grid-column: span 1; }
+  .hrow[data-dir="-1"] .hrow__item:nth-child(2), .hrow[data-dir="-1"] .hrow__item:nth-child(3) { grid-column: span 1; }  /* Spinnin' Sessions: the two sleeves side by side */
 
   .explore { margin-top: 40px; line-height: 1.2; }
-  .hrow + .project--head { margin-top: 28px; }
+  .hrow + .project--head { margin-top: 32px; }
 
   .site-contact { margin-top: 112px; padding-bottom: 88px; grid-template-columns: 1fr; scroll-margin-top: 64px; }
   /* phones: no extra space under Connect (the Connect link then simply scrolls to the bottom) */
   .page-home .site-contact { min-height: 0; }
   .site-contact__socials { grid-column: 1; grid-row: auto; justify-content: flex-start; }
-  body:not(.page-home) .site-footer { margin-top: 72px; }
+  body:not(.page-home) .site-footer { margin-top: 80px; }
   body.page-artworks .site-footer, body.page-3d .site-footer { margin-top: 64px; }
   .site-contact .section-head { margin-bottom: 16px; }
   .site-contact__mail { margin-top: 8px; font-size: 16px; overflow-wrap: normal; }
