@@ -171,7 +171,7 @@
       isOpen = open;
       qc.classList.toggle('is-open', open);
       qcToggle.setAttribute('aria-expanded', String(open));
-      qcLabel.textContent = open ? 'Close' : 'Contact';
+      qcLabel.textContent = open ? 'Close' : 'Get in touch';
       if (open && canHover) setTimeout(() => form.querySelector('input:not([type="checkbox"])').focus({ preventScroll: true }), 60);
       if (!open) {
         if (focusBack) qcToggle.focus();
