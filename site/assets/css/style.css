@@ -94,8 +94,8 @@ button { font: inherit; color: inherit; }
   text-transform: uppercase;
 }
 
-/* small meta labels stay in caps, everything else in normal case */
-.section-head__meta, .card__meta {
+/* small meta labels (and the desktop menu) stay in caps, everything else in normal case */
+.section-head__meta, .card__meta, .site-nav {
   text-transform: uppercase;
   letter-spacing: 0.06em;
   font-size: max(calc(7 * var(--u)), 9.5px);
