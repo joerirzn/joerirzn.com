@@ -108,7 +108,7 @@ button { font: inherit; color: inherit; }
   pointer-events: none;
 }
 .site-header__inner {
-  width: var(--w); height: calc(32 * var(--u));
+  width: var(--w); height: calc(26 * var(--u));
   margin: 0 auto;
   padding: 0 calc(16 * var(--u));
   display: flex; align-items: center; justify-content: space-between;
@@ -992,7 +992,7 @@ html:active-view-transition-type(back)::view-transition-new(*):only-child {
   }
 
   .site-header { top: 8px; }
-  .site-header__inner { height: 46px; padding: 0 18px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45); }
+  .site-header__inner { height: 38px; padding: 0 16px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45); }
   .site-header__logo img { width: 56px; }
   .site-nav { display: none; }
   .menu-toggle { display: flex; margin-right: -8px; }
