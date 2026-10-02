@@ -256,7 +256,6 @@ def head(page):
 <link rel="icon" href="/assets/icons/favicon-32.png" sizes="32x32" type="image/png">
 <link rel="icon" href="/assets/icons/icon-192.png" sizes="192x192" type="image/png">
 <link rel="apple-touch-icon" href="/assets/icons/apple-touch-icon.png">
-<link rel="manifest" href="/site.webmanifest">
 <link rel="preload" href="/assets/fonts/roboto-latin.woff2" as="font" type="font/woff2" crossorigin>
 {page.get('preload', '')}<link rel="stylesheet" href="/assets/css/style.css">
 <script src="/assets/js/main.js" defer></script>
@@ -818,14 +817,10 @@ write_page({'path': '/404', 'file': '404.html', 'slug': 'notfound', 'title': 'Pa
             'desc': 'This page does not exist. Explore the portfolio of Joeri RZN.'},
            '<section class="notfound"><h1>404</h1><p>This page doesn’t exist (anymore).</p><p><a href="/">Back to home</a></p></section>')
 
-# ---------------------------------------------------------------- sitemap / robots / manifest
+# ---------------------------------------------------------------- sitemap / robots
 urls = ['/', '/artworks/', '/branding/', '/video/', '/packaging/', '/3d/']
 (SITE / 'sitemap.xml').write_text('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
                                   + ''.join(f'  <url><loc>{DOMAIN}{u}</loc><lastmod>{TODAY}</lastmod></url>\n' for u in urls) + '</urlset>\n')
 (SITE / 'robots.txt').write_text(f'User-agent: *\nAllow: /\n\nSitemap: {DOMAIN}/sitemap.xml\n')
-(SITE / 'site.webmanifest').write_text(json.dumps({
-    "name": "JOERIRZN", "short_name": "JOERIRZN", "start_url": "/", "display": "standalone",
-    "background_color": "#000000", "theme_color": "#000000",
-    "icons": [{"src": "/assets/icons/icon-192.png", "sizes": "192x192", "type": "image/png"},
-              {"src": "/assets/icons/icon-512.png", "sizes": "512x512", "type": "image/png"}]}, indent=2))
+# no web app manifest: it made Chrome offer to "install" the site as an app
 print('done')
