@@ -17,7 +17,7 @@ TODAY = '2026-09-29'
 INSTAGRAM_FEED = 'https://feeds.behold.so/Ba41bk2ruhuOZjTUoZS8'
 # Web3Forms access key for the floating contact form (free, sent to contact@joerirzn.com).
 # Empty: the form opens the visitor's mail app with the message filled in instead.
-FORM_KEY = ''
+FORM_KEY = '71368b36-5919-42d7-90d6-9e25fffcf5f1'
 
 for d in ['img', 'video', 'logos', 'fonts', 'icons', 'css', 'js']:
     (A / d).mkdir(parents=True, exist_ok=True)
