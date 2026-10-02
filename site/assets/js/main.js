@@ -354,16 +354,40 @@
       el.textContent = '0';
       return { el, target };
     }).filter(Boolean);
+    // vertical motion blur: one SVG blur filter per number, strong while counting fast, sharp at the end
+    const svgNS = 'http://www.w3.org/2000/svg';
+    const svg = doc.createElementNS(svgNS, 'svg');
+    svg.setAttribute('aria-hidden', 'true');
+    svg.style.cssText = 'position:absolute;width:0;height:0;overflow:hidden';
+    nums.forEach((n, i) => {
+      const filter = doc.createElementNS(svgNS, 'filter');
+      filter.id = `count-blur-${i}`;
+      filter.setAttribute('x', '-10%'); filter.setAttribute('width', '120%');
+      filter.setAttribute('y', '-50%'); filter.setAttribute('height', '200%');
+      const blur = doc.createElementNS(svgNS, 'feGaussianBlur');
+      blur.setAttribute('stdDeviation', '0 0');
+      filter.append(blur);
+      svg.append(filter);
+      n.blur = blur;
+      n.el.style.display = 'inline-block';
+    });
+    body.append(svg);
+    const MAX_BLUR = 7;   // px of vertical blur at full speed
     const io = new IntersectionObserver(([entry]) => {
       if (!entry.isIntersecting) return;
       io.disconnect();
-      nums.forEach(({ el, target }, i) => {
+      nums.forEach(({ el, target, blur }, i) => {
         const start = performance.now() + i * 120;
         const duration = 1800;
+        el.style.filter = `url(#count-blur-${i})`;
         const step = (now) => {
           const p = Math.min(Math.max((now - start) / duration, 0), 1);
           el.textContent = Math.round(target * (1 - Math.pow(1 - p, 4)));   // ease-out quart
+          const speed = Math.pow(1 - p, 3);                                    // derivative of ease-out quart, 1 -> 0
+          const started = now >= start;
+          blur.setAttribute('stdDeviation', `0 ${(started ? MAX_BLUR * speed : 0).toFixed(2)}`);
           if (p < 1) requestAnimationFrame(step);
+          else el.style.filter = '';
         };
         requestAnimationFrame(step);
       });
