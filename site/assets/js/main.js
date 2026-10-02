@@ -193,7 +193,7 @@
 
     const update = () => qc.classList.toggle('is-away', footerInView && !isOpen);
 
-    // one-time hint: 5s into the visit a small "say hi" appears above the button for a few seconds
+    // one-time hint: 3s into the visit a small "say hi" appears above the button for a few seconds
     // (once per visit, so it doesn't come back on every page)
     const nudge = qc.querySelector('.quick-contact__nudge');
     let nudgeTimer = 0;
@@ -205,7 +205,7 @@
         try { sessionStorage.setItem('rzn-nudge', '1'); } catch { /* private mode: just show it */ }
         qc.classList.add('is-nudging');
         nudgeTimer = setTimeout(hideNudge, 6000);
-      }, 5000);
+      }, 3000);
       nudge.addEventListener('click', () => { hideNudge(); setOpen(true); });
     }
     const setOpen = (open, focusBack) => {
