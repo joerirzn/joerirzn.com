@@ -334,6 +334,43 @@
     if (el.hasAttribute('data-count')) el.dataset.count = artworksMade;
   });
 
+  // About stats (5+, 12+, 1600+): count up from 0 when they scroll into view, a little staggered.
+  // The real numbers are in the HTML, so without JS or with reduced motion they simply show as is.
+  const stats = doc.querySelector('.about__stats');
+  if (stats && hasIO && !reduceMotion) {
+    const nums = [...stats.querySelectorAll('strong')].map((strong) => {
+      let el = strong.querySelector('[data-artworks]');
+      if (!el) {
+        // wrap the leading number ("5" of "5+") so only the digits change
+        const node = strong.firstChild;
+        const m = node && node.nodeType === 3 && node.textContent.match(/^(\d+)(.*)$/);
+        if (!m) return null;
+        el = doc.createElement('span');
+        el.textContent = m[1];
+        node.textContent = m[2];
+        strong.insertBefore(el, node);
+      }
+      const target = Number(el.textContent);
+      el.textContent = '0';
+      return { el, target };
+    }).filter(Boolean);
+    const io = new IntersectionObserver(([entry]) => {
+      if (!entry.isIntersecting) return;
+      io.disconnect();
+      nums.forEach(({ el, target }, i) => {
+        const start = performance.now() + i * 120;
+        const duration = 1800;
+        const step = (now) => {
+          const p = Math.min(Math.max((now - start) / duration, 0), 1);
+          el.textContent = Math.round(target * (1 - Math.pow(1 - p, 4)));   // ease-out quart
+          if (p < 1) requestAnimationFrame(step);
+        };
+        requestAnimationFrame(step);
+      });
+    }, { threshold: 0.5 });
+    io.observe(stats);
+  }
+
   // Artwork counter
   const counter = doc.querySelector('[data-count]');
   if (counter && hasIO && !reduceMotion) {

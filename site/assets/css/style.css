@@ -319,7 +319,18 @@ body:not(.page-home) main { padding-top: calc(52 * var(--u)); }
   height: calc(170 * var(--u));
   overflow: hidden;
   border-block: 1px solid var(--line);
+  position: relative;
 }
+/* soft fade to black on both sides, so logos ease in and out instead of hitting the screen edge.
+   Overlays sit inside the borders, so the top and bottom lines stay full width. */
+.clients::before, .clients::after {
+  content: "";
+  position: absolute; top: 0; bottom: 0; z-index: 1;
+  width: clamp(60px, 18vw, 420px);
+  pointer-events: none;
+}
+.clients::before { left: 0; background: linear-gradient(to right, var(--bg), rgba(0, 0, 0, 0)); }
+.clients::after { right: 0; background: linear-gradient(to left, var(--bg), rgba(0, 0, 0, 0)); }
 .clients__track {
   display: flex;
   width: max-content;
@@ -387,6 +398,7 @@ body:not(.page-home) main { padding-top: calc(52 * var(--u)); }
   line-height: 1;
   font-weight: 500;
   color: #e6e6e6;
+  font-variant-numeric: tabular-nums;  /* digits keep the same width while counting */
 }
 .about__stats > li > span { display: block; margin-top: calc(8 * var(--u)); }
 .about__skills {
