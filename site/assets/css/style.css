@@ -630,9 +630,8 @@ body.page-notfound .site-footer { display: none; }
 .site-footer { border-top: 1px solid var(--line); }
 /* category pages have no Connect block, so the footer keeps the section rhythm itself */
 body:not(.page-home) .site-contact { display: none; }
-body:not(.page-home) .site-footer { margin-top: calc(120 * var(--u)); }
+body:not(.page-home) .site-footer { margin-top: calc(60 * var(--u)); }  /* same as banner -> content */
 /* pages that end on a small line of text (counter / explore link) sit closer to the footer */
-body.page-artworks .site-footer, body.page-3d .site-footer { margin-top: calc(60 * var(--u)); }
 .site-footer__inner {
   width: var(--w);
   margin: 0 auto;
@@ -1078,8 +1077,7 @@ html:active-view-transition-type(back)::view-transition-new(*):only-child {
   /* phones: no extra space under Connect (the Connect link then simply scrolls to the bottom) */
   .page-home .site-contact { min-height: 0; }
   .site-contact__socials { grid-column: 1; grid-row: auto; justify-content: flex-start; }
-  body:not(.page-home) .site-footer { margin-top: 80px; }
-  body.page-artworks .site-footer, body.page-3d .site-footer { margin-top: 64px; }
+  body:not(.page-home) .site-footer { margin-top: 32px; }
   .site-contact .section-head { margin-bottom: 16px; }
   .site-contact__mail { margin-top: 8px; font-size: 16px; overflow-wrap: normal; }
   .site-contact__socials { gap: 6px; margin-top: 14px; }
