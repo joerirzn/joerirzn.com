@@ -309,17 +309,17 @@ button { font: inherit; color: inherit; }
 .qc__sub { margin-top: calc(4 * var(--u)); color: #777; }
 .qc input:not([type="radio"]):not([type="checkbox"]), .qc textarea {
   width: 100%;
-  padding: calc(8 * var(--u)) calc(11 * var(--u));
+  padding: calc(8 * var(--u)) calc(14 * var(--u));
   font: inherit; color: var(--fg-hover);
   background: rgba(255, 255, 255, 0.03);
   border: 1px solid var(--line);
-  border-radius: calc(10 * var(--u));
+  border-radius: 999px;  /* round like the buttons */
   outline: none;
   transition: border-color 0.2s var(--ease);
 }
 .qc input:focus, .qc textarea:focus { border-color: rgba(255, 255, 255, 0.35); }
 .qc ::placeholder { color: #666; opacity: 1; }
-.qc textarea { resize: none; min-height: calc(84 * var(--u)); line-height: 1.35; }
+.qc textarea { resize: none; min-height: calc(84 * var(--u)); line-height: 1.35; border-radius: calc(14 * var(--u)); }  /* several lines: rounded, not a pill */
 
 /* answer pills: a hidden radio/checkbox with a pill-shaped label */
 .qc__chips { display: flex; flex-wrap: wrap; gap: calc(5 * var(--u)); }
@@ -1175,8 +1175,8 @@ html:active-view-transition-type(back)::view-transition-new(*):only-child {
   .qc, .qc__step { gap: 8px; }
   .qc__step { margin-top: 4px; }
   .qc__progress { gap: 4px; }
-  .qc input:not([type="radio"]):not([type="checkbox"]), .qc textarea { padding: 10px 14px; font-size: 16px; border-radius: 12px; }  /* 16px: iOS does not zoom in on focus */
-  .qc textarea { min-height: 110px; }
+  .qc input:not([type="radio"]):not([type="checkbox"]), .qc textarea { padding: 10px 18px; font-size: 16px; }  /* 16px: iOS does not zoom in on focus */
+  .qc textarea { min-height: 110px; padding: 12px 18px; border-radius: 18px; }
   .qc__chips { gap: 6px; }
   .qc__chip span { padding: 8px 12px; }
   .qc__nav { gap: 8px; margin-top: 4px; }
