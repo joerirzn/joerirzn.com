@@ -291,22 +291,54 @@ def header():
 ''' + quick_contact()
 
 
+QC_STEPS = ('Your business', 'About you', 'Your message')
+QC_TYPES = ('Artist / DJ', 'Record label', 'Events / Club', 'Brand / Company', 'Agency', 'Other')
+QC_TOPICS = ('Artwork', 'Branding', 'Video & Motion', 'Packaging', '3D', 'Something else')
+
+
+def chips(name, kind, values):
+    return ''.join(f'<label class="qc__chip"><input type="{kind}" name="{name}" value="{esc(v)}"><span>{esc(v)}</span></label>'
+                   for v in values)
+
+
 def quick_contact():
-    """Floating contact button (bottom right) that opens a small form above it."""
+    """Floating contact button (bottom right) that opens a small form in three steps above it."""
     return f'''<div class="quick-contact" data-key="{esc(FORM_KEY)}">
   <div class="quick-contact__inner">
     <div class="quick-contact__panel" id="quick-contact" role="dialog" aria-labelledby="qc-title">
-      <form class="qc" action="https://api.web3forms.com/submit" method="post">
-        <p class="qc__title" id="qc-title">Get in touch</p>
+      <form class="qc" action="https://api.web3forms.com/submit" method="post" novalidate data-step="1">
+        <div class="qc__head">
+          <p class="qc__title" id="qc-title">Get in touch</p>
+          <p class="qc__count" aria-hidden="true"><span class="qc__count-num">1</span>/{len(QC_STEPS)}</p>
+        </div>
+        <div class="qc__progress" aria-hidden="true">{'<i></i>' * len(QC_STEPS)}</div>
         <p class="qc__lead">Questions, ideas or just saying hi. I’ll get back to you soon.</p>
-        <label class="visually-hidden" for="qc-name">Name</label>
-        <input id="qc-name" name="name" type="text" autocomplete="name" placeholder="Name" required>
-        <label class="visually-hidden" for="qc-email">Email</label>
-        <input id="qc-email" name="email" type="email" autocomplete="email" placeholder="Email" required>
-        <label class="visually-hidden" for="qc-message">Message</label>
-        <textarea id="qc-message" name="message" rows="4" placeholder="Your message" required></textarea>
+        <div class="qc__step" role="group" aria-labelledby="qc-s1">
+          <p class="qc__label" id="qc-s1">Your business</p>
+          <label class="visually-hidden" for="qc-business">Business name</label>
+          <input id="qc-business" name="business" type="text" autocomplete="organization" placeholder="Business name (optional)">
+          <p class="qc__sub" id="qc-type">Type of business</p>
+          <div class="qc__chips" role="radiogroup" aria-labelledby="qc-type">{chips('business_type', 'radio', QC_TYPES)}</div>
+        </div>
+        <div class="qc__step" role="group" aria-labelledby="qc-s2" hidden>
+          <p class="qc__label" id="qc-s2">About you</p>
+          <label class="visually-hidden" for="qc-name">Name</label>
+          <input id="qc-name" name="name" type="text" autocomplete="name" placeholder="Name" required>
+          <label class="visually-hidden" for="qc-email">Email</label>
+          <input id="qc-email" name="email" type="email" autocomplete="email" placeholder="Email" required>
+        </div>
+        <div class="qc__step" role="group" aria-labelledby="qc-s3" hidden>
+          <p class="qc__label" id="qc-s3">Your message</p>
+          <p class="qc__sub" id="qc-topics">What’s it about? (optional)</p>
+          <div class="qc__chips" role="group" aria-labelledby="qc-topics">{chips('topics', 'checkbox', QC_TOPICS)}</div>
+          <label class="visually-hidden" for="qc-message">Message</label>
+          <textarea id="qc-message" name="message" rows="4" placeholder="Your message" required></textarea>
+        </div>
         <input class="visually-hidden" type="checkbox" name="botcheck" tabindex="-1" autocomplete="off" aria-hidden="true">
-        <button class="qc__send" type="submit">Send message</button>
+        <div class="qc__nav">
+          <button class="qc__back" type="button" hidden>Back</button>
+          <button class="qc__send" type="submit">Next</button>
+        </div>
         <p class="qc__status" role="status" aria-live="polite"></p>
       </form>
     </div>

@@ -153,36 +153,62 @@
     });
   }
 
-  // Quick contact: floating button bottom right that opens a small form above it.
+  // Quick contact: floating button bottom right that opens a small form (three steps) above it.
   // With a Web3Forms key the message is sent in place; without one the visitor's mail app opens, pre-filled.
   const qc = doc.querySelector('.quick-contact');
   if (qc) {
     const qcToggle = qc.querySelector('.quick-contact__toggle');
     const qcLabel = qc.querySelector('.quick-contact__label');
     const form = qc.querySelector('form');
+    const steps = [...form.querySelectorAll('.qc__step')];
+    const bars = [...form.querySelectorAll('.qc__progress i')];
+    const countNum = form.querySelector('.qc__count-num');
+    const back = form.querySelector('.qc__back');
     const status = form.querySelector('.qc__status');
     const send = form.querySelector('.qc__send');
     const key = qc.dataset.key;
     const canHover = matchMedia('(hover: hover)').matches;  // phones: don't pop the keyboard up on open
+    const last = steps.length - 1;
+    let step = 0;
     let isOpen = false;
     let footerInView = false;
+
+    const focusStep = () => {
+      if (!canHover) return;
+      const field = steps[step].querySelector('input:not([type="radio"]):not([type="checkbox"]), textarea');
+      if (field) setTimeout(() => field.focus({ preventScroll: true }), 60);
+    };
+    const showStep = (i) => {
+      step = i;
+      steps.forEach((s, k) => { s.hidden = k !== i; });
+      bars.forEach((b, k) => b.classList.toggle('is-on', k <= i));
+      form.dataset.step = String(i + 1);
+      countNum.textContent = String(i + 1);
+      back.hidden = i === 0;
+      send.textContent = i === last ? 'Send message' : 'Next';
+      status.textContent = '';
+    };
+    // check only the fields of the current step (the form itself has novalidate)
+    const stepValid = () => [...steps[step].querySelectorAll('input, textarea')].every((f) => f.reportValidity());
+
     const update = () => qc.classList.toggle('is-away', footerInView && !isOpen);
     const setOpen = (open, focusBack) => {
       isOpen = open;
       qc.classList.toggle('is-open', open);
       qcToggle.setAttribute('aria-expanded', String(open));
       qcLabel.textContent = open ? 'Close' : 'Get in touch';
-      if (open && canHover) setTimeout(() => form.querySelector('input:not([type="checkbox"])').focus({ preventScroll: true }), 60);
+      if (open) focusStep();
       if (!open) {
         if (focusBack) qcToggle.focus();
-        // after a sent message, the next open shows a fresh form
-        if (form.classList.contains('is-sent')) setTimeout(() => { form.classList.remove('is-sent'); status.textContent = ''; }, 400);
+        // after a sent message, the next open starts with a fresh form
+        if (form.classList.contains('is-sent')) setTimeout(() => { form.classList.remove('is-sent'); showStep(0); }, 400);
       }
       update();
     };
     qcToggle.addEventListener('click', () => setOpen(!isOpen));
     doc.addEventListener('keydown', (e) => { if (e.key === 'Escape' && isOpen) setOpen(false, true); });
     doc.addEventListener('pointerdown', (e) => { if (isOpen && !qc.contains(e.target)) setOpen(false); });
+    back.addEventListener('click', () => { showStep(Math.max(0, step - 1)); focusStep(); });
 
     // step aside at the bottom of the page, so it never covers the footer's back-to-top arrow
     const footTop = doc.querySelector('.site-footer__top');
@@ -190,19 +216,41 @@
       new IntersectionObserver(([e]) => { footerInView = e.isIntersecting; update(); }, { rootMargin: '0px 0px 40px 0px' }).observe(footTop);
     }
 
+    const answers = () => {
+      const val = (n) => form.elements.namedItem(n).value.trim();
+      const checked = (n) => [...form.querySelectorAll(`[name="${n}"]:checked`)].map((i) => i.value).join(', ');
+      return {
+        name: val('name'),
+        email: val('email'),
+        business: val('business'),
+        type: checked('business_type'),
+        topics: checked('topics'),
+        message: val('message'),
+      };
+    };
+
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
-      if (form.elements.botcheck.checked) return;
-      const name = form.elements.name.value.trim();
-      const email = form.elements.email.value.trim();
-      const message = form.elements.message.value.trim();
+      if (form.elements.namedItem('botcheck').checked) return;
+      if (!stepValid()) return;
+      if (step < last) {
+        showStep(step + 1);
+        focusStep();
+        return;
+      }
+      const a = answers();
+      const details = [
+        ['Name', a.name], ['Email', a.email], ['Business', a.business],
+        ['Type of business', a.type], ['About', a.topics],
+      ].filter(([, v]) => v);
       if (!key) {
-        const subject = `Message from ${name}`;
-        const text = `${message}\n\n${name}\n${email}`;
+        const subject = `Message from ${a.name}${a.business ? ` (${a.business})` : ''}`;
+        const text = `${a.message}\n\n${details.map(([k, v]) => `${k}: ${v}`).join('\n')}`;
         location.href = `mailto:contact@joerirzn.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(text)}`;
         return;
       }
       send.disabled = true;
+      back.disabled = true;
       send.textContent = 'Sending…';
       status.textContent = '';
       try {
@@ -211,9 +259,12 @@
           headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
           body: JSON.stringify({
             access_key: key,
-            subject: `New message from ${name} via joerirzn.com`,
+            subject: `New message from ${a.name}${a.business ? ` (${a.business})` : ''} via joerirzn.com`,
             from_name: 'joerirzn.com',
-            name, email, message,
+            name: a.name,
+            email: a.email,
+            ...Object.fromEntries(details.slice(2)),
+            message: a.message,
           }),
         });
         const json = await res.json().catch(() => ({}));
@@ -225,7 +276,8 @@
         status.innerHTML = 'Something went wrong. Please email <a href="mailto:contact@joerirzn.com">contact@joerirzn.com</a>.';
       } finally {
         send.disabled = false;
-        send.textContent = 'Send message';
+        back.disabled = false;
+        if (!form.classList.contains('is-sent')) send.textContent = 'Send message';
       }
     });
   }
