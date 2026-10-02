@@ -192,6 +192,22 @@
     const stepValid = () => [...steps[step].querySelectorAll('input, textarea')].every((f) => f.reportValidity());
 
     const update = () => qc.classList.toggle('is-away', footerInView && !isOpen);
+
+    // one-time hint: 5s into the visit a small "say hi" appears above the button for a few seconds
+    // (once per visit, so it doesn't come back on every page)
+    const nudge = qc.querySelector('.quick-contact__nudge');
+    let nudgeTimer = 0;
+    const hideNudge = () => { clearTimeout(nudgeTimer); qc.classList.remove('is-nudging'); };
+    const seen = () => { try { return sessionStorage.getItem('rzn-nudge') === '1'; } catch { return false; } };
+    if (nudge && !seen()) {
+      setTimeout(() => {
+        if (isOpen || footerInView || doc.hidden || seen()) return;
+        try { sessionStorage.setItem('rzn-nudge', '1'); } catch { /* private mode: just show it */ }
+        qc.classList.add('is-nudging');
+        nudgeTimer = setTimeout(hideNudge, 6000);
+      }, 5000);
+      nudge.addEventListener('click', () => { hideNudge(); setOpen(true); });
+    }
     const setOpen = (open, focusBack) => {
       isOpen = open;
       qc.classList.toggle('is-open', open);
@@ -205,7 +221,7 @@
       }
       update();
     };
-    qcToggle.addEventListener('click', () => setOpen(!isOpen));
+    qcToggle.addEventListener('click', () => { hideNudge(); setOpen(!isOpen); });
     doc.addEventListener('keydown', (e) => { if (e.key === 'Escape' && isOpen) setOpen(false, true); });
     doc.addEventListener('pointerdown', (e) => { if (isOpen && !qc.contains(e.target)) setOpen(false); });
     back.addEventListener('click', () => { showStep(Math.max(0, step - 1)); focusStep(); });

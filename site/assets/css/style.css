@@ -209,7 +209,8 @@ button { font: inherit; color: inherit; }
 .quick-contact__inner {
   display: flex; flex-direction: column; align-items: flex-end; gap: calc(8 * var(--u));
 }
-.quick-contact__toggle, .quick-contact__panel {
+.quick-contact__bar { position: relative; }
+.quick-contact__toggle, .quick-contact__panel, .quick-contact__nudge {
   pointer-events: auto;
   background: rgba(0, 0, 0, 0.7);
   -webkit-backdrop-filter: blur(14px);
@@ -230,6 +231,25 @@ button { font: inherit; color: inherit; }
 .quick-contact__toggle:focus-visible,
 .quick-contact.is-open .quick-contact__toggle { color: var(--fg-hover); border-color: rgba(255, 255, 255, 0.35); }
 @media (hover: hover) { .quick-contact__toggle:hover { color: var(--fg-hover); border-color: rgba(255, 255, 255, 0.35); } }
+/* one-time hint above the button, a few seconds into the visit (JS adds .is-nudging) */
+.quick-contact__nudge {
+  position: absolute; right: 0; bottom: calc(100% + 8 * var(--u));
+  padding: calc(6 * var(--u)) calc(12 * var(--u));
+  border-radius: 999px;
+  white-space: nowrap;
+  font-family: inherit; font-size: var(--fs-s); line-height: 1.2;
+  color: #e6e6e6;
+  cursor: pointer;
+  opacity: 0; visibility: hidden;
+  transform: translateY(calc(6 * var(--u))) scale(0.96);
+  transform-origin: 100% 100%;
+  transition: opacity 0.4s var(--ease), transform 0.5s cubic-bezier(0.22, 0.8, 0.2, 1), visibility 0s linear 0.5s;
+}
+.quick-contact.is-nudging .quick-contact__nudge {
+  opacity: 1; visibility: visible; transform: none;
+  transition: opacity 0.4s var(--ease), transform 0.5s cubic-bezier(0.22, 0.8, 0.2, 1), visibility 0s;
+}
+
 /* "available" dot: a small green light with a soft pulse */
 .quick-contact__dot {
   position: relative; flex: none;
@@ -1150,6 +1170,7 @@ html:active-view-transition-type(back)::view-transition-new(*):only-child {
   .quick-contact__inner { gap: 8px; }
   .quick-contact__toggle { min-height: 44px; padding: 6px 21px 6px 20px; gap: 8px; font-size: 11px; }
   .quick-contact__dot { width: 7px; height: 7px; }
+  .quick-contact__nudge { bottom: calc(100% + 8px); padding: 9px 14px; font-size: 13px; }
   .quick-contact__panel { width: calc(100vw - 16px); padding: 18px; max-height: calc(100dvh - 120px); }
   .qc, .qc__step { gap: 8px; }
   .qc__step { margin-top: 4px; }
