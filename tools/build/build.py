@@ -691,27 +691,24 @@ def ptile(src, name, alt, w, h, crop=None):
     return f'<li class="hrow__item" style="--iw:{w};--ih:{h}">{zoom(img_tag(v, alt, w, round(w / 466 * 100)), src)}</li>'
 
 
-pk_row1 = ''.join([
-    ptile(S25, 'spinnin-records-25-years', 'Spinnin’ Sessions vinyl packaging – chrome Spinnin’ Records logo with stickers', 471, 220, (2, 0, 2312, 1080)),
-    ptile(LIVE / 'spinnin-sessions-gatefold.jpg', 'spinnin-sessions-gatefold', 'Spinnin’ Records gatefold vinyl sleeve, black', 274, 220),
-    ptile(LIVE / 'spinnin-sessions-vinyl-angle.jpg', 'spinnin-sessions-vinyl-angle', 'Spinnin’ Sessions vinyl sleeve, angled view', 274, 220),
-    ptile(LIVE / 'spinnin-sessions-collage.png', 'spinnin-sessions-collage', 'Spinnin’ Sessions vinyl packaging, front and back', 220, 220),
-])
-pk_row2 = ''.join([
-    ptile(LIVE / 'cyril-from-down-under-vinyl.jpg', 'cyril-from-down-under-vinyl', 'CYRIL – From Down Under To The World, white double vinyl', 406, 221),
-    ptile(LIVE / 'cyril-from-down-under-front.jpg', 'cyril-from-down-under-front', 'CYRIL – From Down Under To The World, vinyl sleeve front', 407, 221),
-    ptile(LIVE / 'cyril-from-down-under-back.jpg', 'cyril-from-down-under-back', 'CYRIL – From Down Under To The World, vinyl sleeve back', 407, 221),
-])
+# Packaging: fixed rows like Branding (wide shot full width, the rest side by side; nothing cropped)
+pk_spinnin = section('Spinnin’ Sessions', [
+    row([tile(S25, 'packaging', 'Spinnin’ Sessions vinyl packaging – chrome Spinnin’ Records logo with stickers', 824, 385, 88, (2, 0, 2312, 1080))], [824], 385),
+    row([tile(LIVE / 'spinnin-sessions-gatefold.jpg', 'packaging', 'Spinnin’ Records gatefold vinyl sleeve, black', 287, 230, 44),
+         tile(LIVE / 'spinnin-sessions-vinyl-angle.jpg', 'packaging', 'Spinnin’ Sessions vinyl sleeve, angled view', 287, 230, 44),
+         tile(LIVE / 'spinnin-sessions-collage.png', 'packaging', 'Spinnin’ Sessions vinyl packaging, front and back', 230, 230, 88)],
+        [287, 287, 230], 230, cls='row--pk-trio'),
+], 'spinnin-sessions')
+pk_cyril = section('CYRIL – From Down Under To The World', [
+    row([tile(LIVE / 'cyril-from-down-under-vinyl.jpg', 'packaging', 'CYRIL – From Down Under To The World, white double vinyl', 824, 449, 88)], [824], 449),
+    row([tile(LIVE / 'cyril-from-down-under-front.jpg', 'packaging', 'CYRIL – From Down Under To The World, vinyl sleeve front', 407, 221, 88),
+         tile(LIVE / 'cyril-from-down-under-back.jpg', 'packaging', 'CYRIL – From Down Under To The World, vinyl sleeve back', 407, 221, 88)],
+        [407, 407], 221, cls='row--pk-pair'),
+], 'cyril')
 pk_desc = 'Vinyl and physical packaging design by Joeri RZN, including Spinnin’ Sessions and CYRIL – From Down Under To The World.'
 write_page({'path': '/packaging/', 'slug': 'packaging', 'title': 'Packaging | JOERIRZN', 'desc': pk_desc,
             'jsonld': [breadcrumb('Packaging', '/packaging/'), collection('Packaging', '/packaging/', pk_desc)]},
-           page_head('Packaging', 'packaging') + f'''
-<section class="hrows" aria-label="Packaging">
-<div class="project project--head"><h2 class="section-label">Spinnin’ Sessions</h2></div>
-<div class="hrow" data-dir="-1"><ul class="hrow__track">{pk_row1}</ul></div>
-<div class="project project--head"><h2 class="section-label">CYRIL – From Down Under To The World</h2></div>
-<div class="hrow hrow--reverse" data-dir="1"><ul class="hrow__track">{pk_row2}</ul></div>
-</section>''')
+           page_head('Packaging', 'packaging') + '\n' + '\n'.join([pk_spinnin, pk_cyril]))
 
 # ---------------------------------------------------------------- 3D
 D = MEDIA / '3D Projects'

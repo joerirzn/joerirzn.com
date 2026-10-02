@@ -1040,6 +1040,12 @@ html:active-view-transition-type(back)::view-transition-new(*):only-child {
   .row-group > .row { display: contents; }
   .row-group .row > * { width: 100%; aspect-ratio: 4 / 5; }
   .row-group .row > .tile--span2 { grid-column: span 2; aspect-ratio: auto; }
+  /* Packaging on phones: sleeves side by side, collage and CYRIL shots full width (same as before) */
+  .row--pk-trio { grid-template-columns: 1fr 1fr; grid-template-rows: auto; aspect-ratio: auto; }
+  .row--pk-trio > * { width: 100%; aspect-ratio: 287 / 230; }
+  .row--pk-trio > :last-child { grid-column: span 2; aspect-ratio: 1; }
+  .row--pk-pair { grid-template-columns: 1fr; grid-template-rows: auto; aspect-ratio: auto; }
+  .row--pk-pair > * { width: 100%; aspect-ratio: 407 / 221; }
   .row--stack {
     grid-template-columns: 1fr;
     grid-template-rows: repeat(2, minmax(0, 1fr));
