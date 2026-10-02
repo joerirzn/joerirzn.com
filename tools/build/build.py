@@ -15,6 +15,9 @@ TODAY = '2026-09-29'
 # Behold feed URL for the Instagram previews under Connect, e.g. 'https://feeds.behold.so/AbC123xyz'.
 # Leave empty to hide the block.
 INSTAGRAM_FEED = 'https://feeds.behold.so/Ba41bk2ruhuOZjTUoZS8'
+# Web3Forms access key for the floating contact form (free, sent to contact@joerirzn.com).
+# Empty: the form opens the visitor's mail app with the message filled in instead.
+FORM_KEY = ''
 
 for d in ['img', 'video', 'logos', 'fonts', 'icons', 'css', 'js']:
     (A / d).mkdir(parents=True, exist_ok=True)
@@ -285,6 +288,33 @@ def header():
 <nav class="site-menu" id="site-menu" aria-label="Main">
   <ul>{menu}</ul>
 </nav>
+''' + quick_contact()
+
+
+def quick_contact():
+    """Floating contact button (bottom right) that opens a small form above it."""
+    return f'''<div class="quick-contact" data-key="{esc(FORM_KEY)}">
+  <div class="quick-contact__inner">
+    <div class="quick-contact__panel" id="quick-contact" role="dialog" aria-labelledby="qc-title">
+      <form class="qc" action="https://api.web3forms.com/submit" method="post">
+        <p class="qc__title" id="qc-title">Let’s work together</p>
+        <p class="qc__lead">Always up for new projects and creative collaborations.</p>
+        <label class="visually-hidden" for="qc-name">Name</label>
+        <input id="qc-name" name="name" type="text" autocomplete="name" placeholder="Name" required>
+        <label class="visually-hidden" for="qc-email">Email</label>
+        <input id="qc-email" name="email" type="email" autocomplete="email" placeholder="Email" required>
+        <label class="visually-hidden" for="qc-message">Message</label>
+        <textarea id="qc-message" name="message" rows="4" placeholder="Tell me about your project" required></textarea>
+        <input class="visually-hidden" type="checkbox" name="botcheck" tabindex="-1" autocomplete="off" aria-hidden="true">
+        <button class="qc__send" type="submit">Send message</button>
+        <p class="qc__status" role="status" aria-live="polite"></p>
+      </form>
+    </div>
+    <button class="quick-contact__toggle" type="button" aria-expanded="false" aria-controls="quick-contact">
+      {ICON['mail']}<span class="quick-contact__label">Contact</span>
+    </button>
+  </div>
+</div>
 '''
 
 

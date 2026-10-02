@@ -153,6 +153,83 @@
     });
   }
 
+  // Quick contact: floating button bottom right that opens a small form above it.
+  // With a Web3Forms key the message is sent in place; without one the visitor's mail app opens, pre-filled.
+  const qc = doc.querySelector('.quick-contact');
+  if (qc) {
+    const qcToggle = qc.querySelector('.quick-contact__toggle');
+    const qcLabel = qc.querySelector('.quick-contact__label');
+    const form = qc.querySelector('form');
+    const status = form.querySelector('.qc__status');
+    const send = form.querySelector('.qc__send');
+    const key = qc.dataset.key;
+    const canHover = matchMedia('(hover: hover)').matches;  // phones: don't pop the keyboard up on open
+    let isOpen = false;
+    let footerInView = false;
+    const update = () => qc.classList.toggle('is-away', footerInView && !isOpen);
+    const setOpen = (open, focusBack) => {
+      isOpen = open;
+      qc.classList.toggle('is-open', open);
+      qcToggle.setAttribute('aria-expanded', String(open));
+      qcLabel.textContent = open ? 'Close' : 'Contact';
+      if (open && canHover) setTimeout(() => form.querySelector('input:not([type="checkbox"])').focus({ preventScroll: true }), 60);
+      if (!open) {
+        if (focusBack) qcToggle.focus();
+        // after a sent message, the next open shows a fresh form
+        if (form.classList.contains('is-sent')) setTimeout(() => { form.classList.remove('is-sent'); status.textContent = ''; }, 400);
+      }
+      update();
+    };
+    qcToggle.addEventListener('click', () => setOpen(!isOpen));
+    doc.addEventListener('keydown', (e) => { if (e.key === 'Escape' && isOpen) setOpen(false, true); });
+    doc.addEventListener('pointerdown', (e) => { if (isOpen && !qc.contains(e.target)) setOpen(false); });
+
+    // step aside at the bottom of the page, so it never covers the footer's back-to-top arrow
+    const footTop = doc.querySelector('.site-footer__top');
+    if (hasIO && footTop) {
+      new IntersectionObserver(([e]) => { footerInView = e.isIntersecting; update(); }, { rootMargin: '0px 0px 40px 0px' }).observe(footTop);
+    }
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      if (form.elements.botcheck.checked) return;
+      const name = form.elements.name.value.trim();
+      const email = form.elements.email.value.trim();
+      const message = form.elements.message.value.trim();
+      if (!key) {
+        const subject = `Project inquiry from ${name}`;
+        const text = `${message}\n\n${name}\n${email}`;
+        location.href = `mailto:contact@joerirzn.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(text)}`;
+        return;
+      }
+      send.disabled = true;
+      send.textContent = 'Sending…';
+      status.textContent = '';
+      try {
+        const res = await fetch('https://api.web3forms.com/submit', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+          body: JSON.stringify({
+            access_key: key,
+            subject: `New message from ${name} via joerirzn.com`,
+            from_name: 'joerirzn.com',
+            name, email, message,
+          }),
+        });
+        const json = await res.json().catch(() => ({}));
+        if (!res.ok || !json.success) throw new Error('send failed');
+        form.reset();
+        form.classList.add('is-sent');
+        status.textContent = 'Thanks! Your message is on its way. I’ll get back to you soon.';
+      } catch {
+        status.innerHTML = 'Something went wrong. Please email <a href="mailto:contact@joerirzn.com">contact@joerirzn.com</a>.';
+      } finally {
+        send.disabled = false;
+        send.textContent = 'Send message';
+      }
+    });
+  }
+
   // Header nav "flashlight": a soft light glides over the menu text and follows the scroll position
   const navList = doc.querySelector('.site-nav ul');
   const spyLinks = [...doc.querySelectorAll('.site-nav a[data-spy]')];

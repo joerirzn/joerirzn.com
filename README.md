@@ -81,6 +81,17 @@ De 6 nieuwste posts worden live opgehaald via [Behold](https://behold.so) en wer
 De feed is ingesteld op `https://feeds.behold.so/Ba41bk2ruhuOZjTUoZS8`.
 Als de feed niet laadt, blijft het blok onzichtbaar. Het gratis plan van Behold ververst ongeveer één keer per dag.
 
+## Contactformulier (zwevende knop rechtsonder)
+
+Berichten worden verstuurd via [Web3Forms](https://web3forms.com) (gratis, 250 berichten per maand) en komen binnen op contact@joerirzn.com.
+
+1. Ga naar web3forms.com, vul contact@joerirzn.com in en vraag een access key aan. Die krijg je per mail.
+2. Open `tools/build/build.py`, zoek `FORM_KEY = ''` en zet de key tussen de aanhalingstekens.
+3. Draai het build-script opnieuw, zodat de key in alle pagina's komt.
+
+De key mag openbaar in de site staan; zo is Web3Forms bedoeld.
+Zonder key opent "Send message" het mailprogramma van de bezoeker, met het bericht al ingevuld.
+
 ## Build-script (voor ontwikkelaars)
 
 `tools/build/build.py` genereert alle pagina's in `site/` en de geoptimaliseerde afbeeldingen.

@@ -95,7 +95,7 @@ button { font: inherit; color: inherit; }
 }
 
 /* small meta labels (and the desktop menu) stay in caps, everything else in normal case */
-.section-head__meta, .card__meta, .site-nav {
+.section-head__meta, .card__meta, .site-nav, .quick-contact__toggle, .qc__send {
   text-transform: uppercase;
   letter-spacing: 0.06em;
   font-size: max(calc(7 * var(--u)), 9.5px);
@@ -193,6 +193,94 @@ button { font: inherit; color: inherit; }
 }
 .site-menu a { display: inline-block; padding: 0.08em 0.2em; transition: color 0.2s var(--ease); }
 .site-menu a:hover { color: var(--fg-hover); }
+
+/* ------------------------------------------------------------------ quick contact
+   Floats bottom right like the menu (same pill, blur and line), lined up with the menu's right edge.
+   The button opens a small form above it; it steps aside for the footer, the phone menu and the lightbox. */
+.quick-contact {
+  position: fixed; inset: auto 0 calc(10 * var(--u)); z-index: 190;
+  pointer-events: none;
+  transition: opacity 0.35s var(--ease), visibility 0s;
+}
+.quick-contact.is-away, .menu-open .quick-contact, .lightbox-open .quick-contact {
+  opacity: 0; visibility: hidden;
+  transition: opacity 0.35s var(--ease), visibility 0s linear 0.35s;
+}
+.quick-contact__inner {
+  width: var(--w); margin: 0 auto;
+  display: flex; flex-direction: column; align-items: flex-end; gap: calc(8 * var(--u));
+}
+.quick-contact__toggle, .quick-contact__panel {
+  pointer-events: auto;
+  background: rgba(0, 0, 0, 0.7);
+  -webkit-backdrop-filter: blur(14px);
+  backdrop-filter: blur(14px);
+  border: 1px solid var(--line);
+}
+.quick-contact__toggle {
+  display: flex; align-items: center; gap: calc(7 * var(--u));
+  height: calc(26 * var(--u));
+  padding: 0 calc(16 * var(--u));
+  border-radius: 999px;
+  color: var(--fg);
+  font-family: inherit;
+  cursor: pointer;
+  transition: color 0.2s var(--ease), border-color 0.2s var(--ease);
+}
+.quick-contact__toggle:hover, .quick-contact__toggle:focus-visible,
+.quick-contact.is-open .quick-contact__toggle { color: var(--fg-hover); border-color: rgba(255, 255, 255, 0.35); }
+.quick-contact__toggle svg { width: auto; height: max(calc(7 * var(--u)), 9px); }
+
+.quick-contact__panel {
+  width: min(calc(260 * var(--u)), 100%);
+  max-height: calc(100vh - 80 * var(--u));
+  max-height: calc(100dvh - 80 * var(--u));
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: calc(18 * var(--u));
+  border-radius: var(--radius);
+  background: rgba(0, 0, 0, 0.85);  /* a bit darker than the menu: the form stays readable over bright work */
+  transform-origin: 100% 100%;
+  opacity: 0; visibility: hidden;
+  transform: translateY(calc(8 * var(--u))) scale(0.97);
+  transition: opacity 0.3s var(--ease), transform 0.4s cubic-bezier(0.22, 0.8, 0.2, 1), visibility 0s linear 0.4s;
+}
+.quick-contact.is-open .quick-contact__panel {
+  opacity: 1; visibility: visible; transform: none;
+  transition: opacity 0.3s var(--ease), transform 0.4s cubic-bezier(0.22, 0.8, 0.2, 1), visibility 0s;
+}
+
+.qc { display: grid; gap: calc(8 * var(--u)); }
+.qc__title { color: #e6e6e6; text-transform: uppercase; font-weight: 500; }
+.qc__lead { margin-bottom: calc(6 * var(--u)); line-height: 1.35; }
+.qc input, .qc textarea {
+  width: 100%;
+  padding: calc(8 * var(--u)) calc(11 * var(--u));
+  font: inherit; color: var(--fg-hover);
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--line);
+  border-radius: calc(10 * var(--u));
+  outline: none;
+  transition: border-color 0.2s var(--ease);
+}
+.qc input:focus, .qc textarea:focus { border-color: rgba(255, 255, 255, 0.35); }
+.qc ::placeholder { color: #666; opacity: 1; }
+.qc textarea { resize: none; min-height: calc(84 * var(--u)); line-height: 1.35; }
+.qc__send {
+  height: calc(26 * var(--u));
+  margin-top: calc(4 * var(--u));
+  border: 0; border-radius: 999px;
+  background: #fff; color: #000;
+  font-family: inherit; font-weight: 500;
+  cursor: pointer;
+  transition: opacity 0.2s var(--ease);
+}
+.qc__send:hover, .qc__send:focus-visible { opacity: 0.85; }
+.qc__send:disabled { opacity: 0.5; cursor: default; }
+.qc__status:empty { display: none; }
+.qc__status { line-height: 1.35; }
+.qc__status a { color: var(--fg-hover); text-decoration: underline; text-underline-offset: 2px; }
+.qc.is-sent > :not(.qc__title):not(.qc__status) { display: none; }
 
 /* ------------------------------------------------------------------ main spacing */
 main { padding-bottom: 0; }
@@ -991,6 +1079,16 @@ html:active-view-transition-type(back)::view-transition-new(*):only-child {
   }
 
   .site-header { top: 8px; }
+  .quick-contact { bottom: calc(8px + env(safe-area-inset-bottom)); }
+  .quick-contact__inner { gap: 8px; }
+  .quick-contact__toggle { height: 38px; padding: 0 16px; gap: 8px; font-size: 12px; }
+  .quick-contact__toggle svg { height: 10px; }
+  .quick-contact__panel { width: 100%; padding: 18px; max-height: calc(100dvh - 120px); }
+  .qc { gap: 8px; }
+  .qc__lead { margin-bottom: 4px; }
+  .qc input, .qc textarea { padding: 10px 14px; font-size: 16px; border-radius: 12px; }  /* 16px: iOS does not zoom in on focus */
+  .qc textarea { min-height: 110px; }
+  .qc__send { height: 44px; margin-top: 4px; font-size: 12px; }
   .site-header__inner { height: 38px; padding: 0 16px; }
   .site-header__logo img { width: 56px; }
   .site-nav { display: none; }
