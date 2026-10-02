@@ -707,7 +707,9 @@ write_page({'path': '/packaging/', 'slug': 'packaging', 'title': 'Packaging | JO
             'jsonld': [breadcrumb('Packaging', '/packaging/'), collection('Packaging', '/packaging/', pk_desc)]},
            page_head('Packaging', 'packaging') + f'''
 <section class="hrows" aria-label="Packaging">
+<div class="project project--head"><h2 class="section-label">Spinnin’ Sessions</h2></div>
 <div class="hrow" data-dir="-1"><ul class="hrow__track">{pk_row1}</ul></div>
+<div class="project project--head"><h2 class="section-label">CYRIL – From Down Under To The World</h2></div>
 <div class="hrow hrow--reverse" data-dir="1"><ul class="hrow__track">{pk_row2}</ul></div>
 </section>''')
 

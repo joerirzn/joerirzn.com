@@ -476,6 +476,11 @@ a.tile:hover video { opacity: 0.75; }
 .sub--2x2, .sub--mp4 { grid-template-columns: 1fr 1fr; grid-template-rows: repeat(2, minmax(0, 1fr)); }
 .sub--mp4 .tile--wide { grid-column: 1 / -1; }
 
+/* packaging: a project heading above each scrolling row */
+.project--head { margin-bottom: 0; }
+.hrows > .project--head:first-child { margin-top: 0; }
+.hrow + .project--head { margin-top: calc(40 * var(--u)); }
+
 /* ------------------------------------------------------------------ artworks */
 .art-grid-wrap { width: var(--w); margin: calc(50 * var(--u)) auto 0; }
 .art-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: var(--gap); }
@@ -1061,6 +1066,7 @@ html:active-view-transition-type(back)::view-transition-new(*):only-child {
   .hrow:first-child .hrow__item:nth-child(2), .hrow:first-child .hrow__item:nth-child(3) { grid-column: span 1; }
 
   .explore { margin-top: 40px; line-height: 1.2; }
+  .hrow + .project--head { margin-top: 32px; }
 
   .site-contact { margin-top: 112px; padding-bottom: 88px; grid-template-columns: 1fr; scroll-margin-top: 64px; }
   /* phones: no extra space under Connect (the Connect link then simply scrolls to the bottom) */
