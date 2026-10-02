@@ -217,10 +217,11 @@ button { font: inherit; color: inherit; }
   border: 1px solid var(--line);
 }
 .quick-contact__toggle {
-  display: flex; align-items: center; gap: calc(6 * var(--u));
-  height: calc(22 * var(--u));
-  padding: 0 calc(12 * var(--u));
+  display: flex; align-items: center; gap: calc(7 * var(--u));
+  min-height: max(32px, calc(23 * var(--u) + 2px));  /* same size as the Connect buttons (their 13u icon + padding + border) */
+  padding: calc(5 * var(--u)) calc(13 * var(--u)) calc(5 * var(--u)) calc(10 * var(--u));
   border-radius: 999px;
+  font-size: var(--fs-s); line-height: 1.2;
   color: var(--fg);
   font-family: inherit;
   cursor: pointer;
@@ -228,7 +229,7 @@ button { font: inherit; color: inherit; }
 }
 .quick-contact__toggle:hover, .quick-contact__toggle:focus-visible,
 .quick-contact.is-open .quick-contact__toggle { color: var(--fg-hover); border-color: rgba(255, 255, 255, 0.35); }
-.quick-contact__toggle svg { width: auto; height: max(calc(6 * var(--u)), 8px); }
+.quick-contact__toggle svg { width: auto; height: max(calc(9.5 * var(--u)), 11px); }
 
 .quick-contact__panel {
   width: min(calc(260 * var(--u)), calc(100vw - 20 * var(--u)));
@@ -1080,8 +1081,8 @@ html:active-view-transition-type(back)::view-transition-new(*):only-child {
   .site-header { top: 8px; }
   .quick-contact { right: calc(8px + env(safe-area-inset-right)); bottom: calc(8px + env(safe-area-inset-bottom)); }
   .quick-contact__inner { gap: 8px; }
-  .quick-contact__toggle { height: 32px; padding: 0 12px; gap: 7px; font-size: 11px; }
-  .quick-contact__toggle svg { height: 9px; }
+  .quick-contact__toggle { min-height: 44px; padding: 6px 16px 6px 14px; gap: 7px; font-size: 13px; }
+  .quick-contact__toggle svg { height: 11px; }
   .quick-contact__panel { width: calc(100vw - 16px); padding: 18px; max-height: calc(100dvh - 120px); }
   .qc { gap: 8px; }
   .qc__lead { margin-bottom: 4px; }
