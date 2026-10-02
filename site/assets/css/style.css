@@ -263,7 +263,7 @@ body:not(.page-home) main { padding-top: calc(52 * var(--u)); }
   content: "";
   position: absolute; inset: 0;
   z-index: 3;
-  border: 1px solid rgba(255, 255, 255, 0.16);
+  border: 1px solid var(--line);
   border-radius: inherit;
   pointer-events: none;
 }
@@ -444,7 +444,7 @@ body:not(.page-home) main { padding-top: calc(52 * var(--u)); }
   border-radius: var(--radius-s);
   background: var(--tile-bg);
 }
-.tile::after {
+.tile::after, .art-grid li::after, .yt::after {
   content: "";
   position: absolute; inset: 0;
   border: 1px solid var(--line);
@@ -901,7 +901,7 @@ html.lightbox-open { overflow: hidden; }
 /* the morphing frame draws its own border, so the card visibly unfolds into the banner */
 ::view-transition-group(card-artworks), ::view-transition-group(card-branding), ::view-transition-group(card-video),
 ::view-transition-group(card-packaging), ::view-transition-group(card-3d) {
-  outline: 1px solid rgba(255, 255, 255, 0.16);
+  outline: 1px solid var(--line);
   outline-offset: -1px;
 }
 /* just before the snapshot is taken: hide the card's own border and labels (JS adds .vt-leaving) */
