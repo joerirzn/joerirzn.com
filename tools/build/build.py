@@ -292,7 +292,7 @@ def header():
 
 
 QC_STEPS = ('Nice to meet you', 'Tell me a bit more', 'Your message')
-QC_TYPES = ('Artist / DJ', 'Record label', 'Events / Club', 'Brand / Company', 'Agency', 'Just me', 'Other')
+QC_TYPES = ('Brand / Company', 'Agency / Studio', 'Creator / Artist', 'Music / Entertainment', 'Events', 'Just me', 'Other')
 QC_TOPICS = ('Artwork', 'Branding', 'Video & Motion', 'Packaging', '3D', 'Something else')
 
 
