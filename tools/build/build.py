@@ -489,7 +489,7 @@ home_main = f'''<section class="hero" aria-label="Intro">
 <section class="home-section" id="work" aria-labelledby="work-title">
   {section_head('Selected work', '5 categories', '01', 'work-title')}
   <div class="cards">
-    {card('artworks', 'Artworks', '/artworks/', '75 selected · <span data-artworks>1600</span>+ made')}
+    {card('artworks', 'Artworks', '/artworks/', '75 selected · <span data-artworks>1200</span>+ made')}
     <div class="cards__row" style="--cols:324fr 490fr">
       {card('branding', 'Branding &amp; Identity', '/branding/', '7 projects')}
       {card('video', 'Video &amp; Motion', '/video/', '8 videos')}
@@ -523,7 +523,7 @@ home_main = f'''<section class="hero" aria-label="Intro">
       <ul class="about__stats">
         <li><strong>5+</strong><span>Years with artists, labels &amp; brands</span></li>
         <li><strong>12+</strong><span>Years of designing</span></li>
-        <li><strong><span data-artworks>1600</span>+</strong><span>Artworks made</span></li>
+        <li><strong><span data-artworks>1200</span>+</strong><span>Artworks made</span></li>
       </ul>
       <ul class="about__skills" aria-label="Disciplines">{''.join(f'<li>{x}</li>' for x in SKILLS)}</ul>
     </div>
@@ -549,13 +549,13 @@ for m in art:
     v = process(src, 'artworks', slugify(Path(m['match']).stem), 156, 156)
     art_items.append(f'<li>{zoom(img_tag(v, f"{title} – cover artwork by Joeri RZN", 156, 29), src)}</li>')
 
-art_desc = 'A selection of single and album cover artworks by Joeri RZN for Tiësto, David Guetta, AFROJACK, CYRIL, Spinnin’ Records, Musical Freedom and more. Over 1600 artworks made.'
+art_desc = 'A selection of single and album cover artworks by Joeri RZN for Tiësto, David Guetta, AFROJACK, CYRIL, Spinnin’ Records, Musical Freedom and more. Over 1200 artworks made.'
 art_main = f'''{page_head('Artworks', 'artworks')}
 <section class="art-grid-wrap" aria-label="Artworks">
 <ul class="art-grid">
 {chr(10).join(art_items)}
 </ul>
-<p class="counter">Over <span class="counter__num" data-artworks data-count="1600">1600</span> artworks made</p>
+<p class="counter">Over <span class="counter__num" data-artworks data-count="1200">1200</span> artworks made</p>
 </section>'''
 write_page({'path': '/artworks/', 'slug': 'artworks', 'title': 'Artworks | JOERIRZN',
             'desc': art_desc, 'jsonld': [breadcrumb('Artworks', '/artworks/'), collection('Artworks', '/artworks/', art_desc)]},

@@ -325,8 +325,8 @@
     });
   });
 
-  // Artworks made: 1600 on 29 Sep 2026, plus one for every day since
-  const ARTWORKS_BASE = 1600;
+  // Artworks made: 1200 on 29 Sep 2026, plus one for every day since
+  const ARTWORKS_BASE = 1200;
   const ARTWORKS_BASE_DATE = new Date(2026, 8, 29);
   const artworksMade = ARTWORKS_BASE + Math.max(0, Math.floor((Date.now() - ARTWORKS_BASE_DATE) / 86400000));
   doc.querySelectorAll('[data-artworks]').forEach((el) => {
@@ -334,7 +334,7 @@
     if (el.hasAttribute('data-count')) el.dataset.count = artworksMade;
   });
 
-  // About stats (5+, 12+, 1600+): count up from 0 when they scroll into view, a little staggered.
+  // About stats (5+, 12+, 1200+): count up from 0 when they scroll into view, a little staggered.
   // The real numbers are in the HTML, so without JS or with reduced motion they simply show as is.
   const stats = doc.querySelector('.about__stats');
   if (stats && hasIO && !reduceMotion) {
