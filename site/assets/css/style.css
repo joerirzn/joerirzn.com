@@ -1021,6 +1021,7 @@ html.lightbox-open { overflow: hidden; }
 @view-transition { navigation: auto; }
 
 .site-header__inner { view-transition-name: site-header; }  /* on the pill itself: a name on its parent would stop the backdrop blur from seeing the page */
+.quick-contact__toggle { view-transition-name: quick-contact; }  /* stays put between pages, like the menu */
 
 ::view-transition-group(*) {
   animation-duration: 0.7s;
