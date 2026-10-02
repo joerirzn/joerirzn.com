@@ -311,7 +311,7 @@ def quick_contact():
       </form>
     </div>
     <button class="quick-contact__toggle" type="button" aria-expanded="false" aria-controls="quick-contact">
-      {ICON['mail']}<span class="quick-contact__label">Get in touch</span>
+      <span class="quick-contact__dot" aria-hidden="true"></span><span class="quick-contact__label">Get in touch</span>
     </button>
   </div>
 </div>

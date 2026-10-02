@@ -219,7 +219,7 @@ button { font: inherit; color: inherit; }
 .quick-contact__toggle {
   display: flex; align-items: center; gap: calc(7 * var(--u));
   min-height: max(32px, calc(23 * var(--u) + 2px));  /* same size as the Connect buttons (their 13u icon + padding + border) */
-  padding: calc(5 * var(--u)) calc(13 * var(--u)) calc(5 * var(--u)) calc(10 * var(--u));
+  padding: calc(5 * var(--u)) calc(13 * var(--u)) calc(5 * var(--u)) calc(12 * var(--u));
   border-radius: 999px;
   font-size: var(--fs-s); line-height: 1.2;
   color: var(--fg);
@@ -229,7 +229,25 @@ button { font: inherit; color: inherit; }
 }
 .quick-contact__toggle:hover, .quick-contact__toggle:focus-visible,
 .quick-contact.is-open .quick-contact__toggle { color: var(--fg-hover); border-color: rgba(255, 255, 255, 0.35); }
-.quick-contact__toggle svg { width: auto; height: max(calc(9.5 * var(--u)), 11px); }
+/* "available" dot: a small green light with a soft pulse */
+.quick-contact__dot {
+  position: relative; flex: none;
+  width: max(calc(5 * var(--u)), 6px); height: max(calc(5 * var(--u)), 6px);
+  border-radius: 50%;
+  background: #4ade80;
+  box-shadow: 0 0 6px rgba(74, 222, 128, 0.6);
+}
+.quick-contact__dot::after {
+  content: "";
+  position: absolute; inset: 0;
+  border-radius: inherit;
+  background: inherit;
+  animation: qc-pulse 2.2s cubic-bezier(0.22, 0.8, 0.2, 1) infinite;
+}
+@keyframes qc-pulse {
+  0% { transform: scale(1); opacity: 0.7; }
+  70%, 100% { transform: scale(3.2); opacity: 0; }
+}
 
 .quick-contact__panel {
   width: min(calc(260 * var(--u)), calc(100vw - 20 * var(--u)));
@@ -1081,8 +1099,8 @@ html:active-view-transition-type(back)::view-transition-new(*):only-child {
   .site-header { top: 8px; }
   .quick-contact { right: calc(8px + env(safe-area-inset-right)); bottom: calc(8px + env(safe-area-inset-bottom)); }
   .quick-contact__inner { gap: 8px; }
-  .quick-contact__toggle { min-height: 44px; padding: 6px 16px 6px 14px; gap: 7px; font-size: 13px; }
-  .quick-contact__toggle svg { height: 11px; }
+  .quick-contact__toggle { min-height: 44px; padding: 6px 16px 6px 15px; gap: 8px; font-size: 13px; }
+  .quick-contact__dot { width: 7px; height: 7px; }
   .quick-contact__panel { width: calc(100vw - 16px); padding: 18px; max-height: calc(100dvh - 120px); }
   .qc { gap: 8px; }
   .qc__lead { margin-bottom: 4px; }
