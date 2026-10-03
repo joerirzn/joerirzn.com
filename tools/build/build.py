@@ -815,27 +815,22 @@ write_page({'path': '/3d/', 'slug': '3d', 'title': '3D Projects | JOERIRZN', 'de
            + '\n</section>\n<p class="explore">Explore more 3D work in <a href="/artworks/"><strong>artwork projects</strong></a></p>')
 
 # ---------------------------------------------------------------- WEBSITES
-# Each site: a scroll-through video of the desktop version (recorded from the live site),
-# with three desktop screenshots of other parts of the site stacked next to it.
-def website(key, name, url, sid, shots):
-    desk = video_tile(f'web-{key}-desk.mp4', poster_for(None, 'websites', f'web-{key}-desk', 618, 387),
-                      f'{name} website – desktop scroll-through', 618, 88)
-    stack = ('<div class="sub sub--web">'
-             + ''.join(tile(LIVE / f'web-{key}-s{i + 1}.jpg', 'websites', f'{name} website – {what}', 196, 122, 29)
-                       for i, what in enumerate(shots))
-             + '</div>')
+# Each site: a scroll-through video of the desktop version, recorded from the live site.
+def website(key, name, url, sid):
+    desk = video_tile(f'web-{key}-desk.mp4', poster_for(None, 'websites', f'web-{key}-desk', 824, 515),
+                      f'{name} website – desktop scroll-through', 824, 88)
     link = (f'<a class="section-label__link" href="{url}" target="_blank" rel="noopener">Visit site <span aria-hidden="true">↗</span></a>'
             if url else '<span class="section-label__link">This website</span>')
-    return section(name, [row([desk, stack], [618, 196], 387, cls='row--web')], sid, link)
+    return section(name, [row([desk], [824], 515)], sid, link)
 
 
-web_desc = 'Websites designed and built by Joeri RZN: Naliovia, Pretty Girls Like Trap Music and joerirzn.com.'
+web_desc = 'Websites designed and built by Joeri RZN: joerirzn.com, Pretty Girls Like Trap Music and Naliovia.'
 write_page({'path': '/websites/', 'slug': 'websites', 'title': 'Websites | JOERIRZN', 'desc': web_desc,
             'jsonld': [breadcrumb('Websites', '/websites/'), collection('Websites', '/websites/', web_desc)]},
            page_head('Websites', 'websites') + '\n' + '\n'.join([
-               website('naliovia', 'Naliovia', 'https://naliovia.com/', 'naliovia', ('selected work', 'video work', 'about me')),
-               website('pgltm', 'Pretty Girls Like Trap Music', 'https://prettygirlsliketrapmusic.nl/', 'pgltm-site', ('upcoming events and about us', 'what we do and FAQ', 'FAQ and footer')),
-               website('joerirzn', 'JOERIRZN', None, 'joerirzn-site', ('selected work', 'about me', 'connect and Instagram')),
+               website('joerirzn', 'JOERIRZN', None, 'joerirzn-site'),
+               website('pgltm', 'Pretty Girls Like Trap Music', 'https://prettygirlsliketrapmusic.nl/', 'pgltm-site'),
+               website('naliovia', 'Naliovia', 'https://naliovia.com/', 'naliovia'),
            ]))
 
 # ---------------------------------------------------------------- 404
