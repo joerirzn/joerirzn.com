@@ -645,6 +645,10 @@ a.tile:hover video { opacity: 0.75; }
   line-height: calc(9 * var(--u));
 }
 .section-label::after { content: ""; flex: 1; height: 1px; background: var(--line); }
+/* optional link at the end of a label line ("Visit site ↗" on Websites) */
+.section-label::after { order: 1; }
+.section-label__link { order: 2; color: var(--fg); white-space: nowrap; transition: color 0.2s var(--ease); }
+a.section-label__link:hover, a.section-label__link:focus-visible { color: var(--fg-hover); }
 
 .row {
   display: grid;
@@ -1037,7 +1041,8 @@ html.lightbox-open { overflow: hidden; }
 ::view-transition-group(card-branding),
 ::view-transition-group(card-video),
 ::view-transition-group(card-packaging),
-::view-transition-group(card-3d) {
+::view-transition-group(card-3d),
+::view-transition-group(card-websites) {
   overflow: hidden;
   border-radius: var(--radius);
 }
@@ -1045,7 +1050,8 @@ html.lightbox-open { overflow: hidden; }
 ::view-transition-old(card-branding), ::view-transition-new(card-branding),
 ::view-transition-old(card-video), ::view-transition-new(card-video),
 ::view-transition-old(card-packaging), ::view-transition-new(card-packaging),
-::view-transition-old(card-3d), ::view-transition-new(card-3d) {
+::view-transition-old(card-3d), ::view-transition-new(card-3d),
+::view-transition-old(card-websites), ::view-transition-new(card-websites) {
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -1054,12 +1060,12 @@ html.lightbox-open { overflow: hidden; }
 /* the card keeps showing while it unfolds and only hands over to the banner at the very end,
    so it reads as one image opening up instead of two images cross-fading */
 ::view-transition-old(card-artworks), ::view-transition-old(card-branding), ::view-transition-old(card-video),
-::view-transition-old(card-packaging), ::view-transition-old(card-3d) {
+::view-transition-old(card-packaging), ::view-transition-old(card-3d), ::view-transition-old(card-websites) {
   animation: vt-hold-out 0.7s cubic-bezier(0.22, 0.8, 0.2, 1) both;
   mix-blend-mode: plus-lighter;
 }
 ::view-transition-new(card-artworks), ::view-transition-new(card-branding), ::view-transition-new(card-video),
-::view-transition-new(card-packaging), ::view-transition-new(card-3d) {
+::view-transition-new(card-packaging), ::view-transition-new(card-3d), ::view-transition-new(card-websites) {
   animation: vt-hold-in 0.7s cubic-bezier(0.22, 0.8, 0.2, 1) both;
   mix-blend-mode: plus-lighter;
 }
@@ -1077,7 +1083,7 @@ html.lightbox-open { overflow: hidden; }
 }
 /* the morphing frame draws its own border, so the card visibly unfolds into the banner */
 ::view-transition-group(card-artworks), ::view-transition-group(card-branding), ::view-transition-group(card-video),
-::view-transition-group(card-packaging), ::view-transition-group(card-3d) {
+::view-transition-group(card-packaging), ::view-transition-group(card-3d), ::view-transition-group(card-websites) {
   outline: 1px solid var(--line);
   outline-offset: -1px;
 }
@@ -1192,7 +1198,7 @@ html:active-view-transition-type(back)::view-transition-new(*):only-child {
   .menu-toggle__dots i { width: 4px; height: 4px; }
   .site-menu ul { font-size: 24px; }
 
-  main, .page-artworks main, .page-branding main, .page-packaging main, .page-3d main { padding-bottom: 0; }
+  main, .page-artworks main, .page-branding main, .page-packaging main, .page-3d main, .page-websites main { padding-bottom: 0; }
   body:not(.page-home) main { padding-top: 76px; }  /* floating menu (8 + 44) + 24 */
 
   .hero__logo { width: var(--w); top: calc(50% - var(--w) * 0.2394); }
@@ -1247,6 +1253,10 @@ html:active-view-transition-type(back)::view-transition-new(*):only-child {
   .row--pk-trio > :last-child { grid-column: span 2; aspect-ratio: 1; }
   .row--pk-stack { grid-template-columns: 1fr; grid-template-rows: auto; aspect-ratio: auto; }
   .row--pk-stack > * { width: 100%; aspect-ratio: 407 / 221; }
+  /* Websites on phones: desktop video full width, the phone video below it, centred and larger */
+  .row--web { grid-template-columns: 1fr; grid-template-rows: auto; aspect-ratio: auto; }
+  .row--web > :first-child { width: 100%; aspect-ratio: 1440 / 900; }
+  .row--web > :last-child { width: 62%; justify-self: center; aspect-ratio: 540 / 1168; }
   .row--stack {
     grid-template-columns: 1fr;
     grid-template-rows: repeat(2, minmax(0, 1fr));

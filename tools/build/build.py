@@ -384,6 +384,7 @@ def footer(home=False):
         <li><a href="/video/">Video &amp; Motion</a></li>
         <li><a href="/packaging/">Packaging</a></li>
         <li><a href="/3d/">3D Projects</a></li>
+        <li><a href="/websites/">Websites</a></li>
       </ul>
       <ul>
         <li class="site-footer__heading">Info</li>
@@ -460,8 +461,8 @@ def row(items, widths, h, wrap=False, cls=''):
     return f'<div class="{c}" style="{style}">\n  ' + '\n  '.join(items) + '\n</div>'
 
 
-def section(title, rows, sid):
-    return (f'<section class="project" aria-labelledby="{sid}">\n<h2 class="section-label" id="{sid}">{title}</h2>\n'
+def section(title, rows, sid, extra=''):
+    return (f'<section class="project" aria-labelledby="{sid}">\n<h2 class="section-label" id="{sid}">{title}{extra}</h2>\n'
             + '\n'.join(rows) + '\n</section>')
 
 
@@ -492,7 +493,7 @@ ICON['lock'] = icon_svg('home-19-23x23.svg', 23, 23)
 
 # category cards (desktop + mobile art direction)
 CARD_SIZES = {'artworks': (824, 157), 'branding': (324, 157), 'video': (490, 157),
-              'packaging': (491, 157), '3d': (323, 157), 'archive': (824, 158)}
+              'packaging': (491, 157), '3d': (323, 157), 'websites': (824, 157), 'archive': (824, 158)}
 CARDS = {}
 for k, (bw, bh) in CARD_SIZES.items():
     CARDS[k] = {
@@ -551,7 +552,7 @@ home_main = f'''<section class="hero" aria-label="Intro">
 </section>
 
 <section class="home-section" id="work" aria-labelledby="work-title">
-  {section_head('Selected work', '5 categories', '01', 'work-title')}
+  {section_head('Selected work', '6 categories', '01', 'work-title')}
   <div class="cards">
     {card('artworks', 'Artworks', '/artworks/', '75 selected · <span data-artworks>1200</span>+ made')}
     <div class="cards__row" style="--cols:324fr 490fr">
@@ -562,6 +563,7 @@ home_main = f'''<section class="hero" aria-label="Intro">
       {card('packaging', 'Packaging', '/packaging/', '2 projects')}
       {card('3d', '3D Projects', '/3d/', '6 projects')}
     </div>
+    {card('websites', 'Websites', '/websites/', '3 websites')}
     {card('archive', 'Archive', None, 'Coming soon') if SHOW_ARCHIVE else ''}
   </div>
 </section>
@@ -812,13 +814,34 @@ write_page({'path': '/3d/', 'slug': '3d', 'title': '3D Projects | JOERIRZN', 'de
            page_head('3D Projects', '3d') + '\n<section class="project project--flush" aria-label="3D projects">\n' + '\n'.join(three)
            + '\n</section>\n<p class="explore">Explore more 3D work in <a href="/artworks/"><strong>artwork projects</strong></a></p>')
 
+# ---------------------------------------------------------------- WEBSITES
+# Each site: a scroll-through video of the desktop and the phone version (recorded from the live site).
+def website(key, name, url, sid):
+    desk = video_tile(f'web-{key}-desk.mp4', poster_for(None, 'websites', f'web-{key}-desk', 632, 395),
+                      f'{name} website – desktop scroll-through', 632, 88)
+    mob = video_tile(f'web-{key}-mob.mp4', poster_for(None, 'websites', f'web-{key}-mob', 182, 395),
+                     f'{name} website – phone scroll-through', 182, 60)
+    link = (f'<a class="section-label__link" href="{url}" target="_blank" rel="noopener">Visit site <span aria-hidden="true">↗</span></a>'
+            if url else '<span class="section-label__link">This website</span>')
+    return section(name, [row([desk, mob], [632, 182], 395, cls='row--web')], sid, link)
+
+
+web_desc = 'Websites designed and built by Joeri RZN: Naliovia, Pretty Girls Like Trap Music and joerirzn.com.'
+write_page({'path': '/websites/', 'slug': 'websites', 'title': 'Websites | JOERIRZN', 'desc': web_desc,
+            'jsonld': [breadcrumb('Websites', '/websites/'), collection('Websites', '/websites/', web_desc)]},
+           page_head('Websites', 'websites') + '\n' + '\n'.join([
+               website('naliovia', 'Naliovia', 'https://naliovia.com/', 'naliovia'),
+               website('pgltm', 'Pretty Girls Like Trap Music', 'https://prettygirlsliketrapmusic.nl/', 'pgltm-site'),
+               website('joerirzn', 'JOERIRZN', None, 'joerirzn-site'),
+           ]))
+
 # ---------------------------------------------------------------- 404
 write_page({'path': '/404', 'file': '404.html', 'slug': 'notfound', 'title': 'Page not found | JOERIRZN',
             'desc': 'This page does not exist. Explore the portfolio of Joeri RZN.'},
            '<section class="notfound"><h1>404</h1><p>This page doesn’t exist (anymore).</p><p><a href="/">Back to home</a></p></section>')
 
 # ---------------------------------------------------------------- sitemap / robots
-urls = ['/', '/artworks/', '/branding/', '/video/', '/packaging/', '/3d/']
+urls = ['/', '/artworks/', '/branding/', '/video/', '/packaging/', '/3d/', '/websites/']
 (SITE / 'sitemap.xml').write_text('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
                                   + ''.join(f'  <url><loc>{DOMAIN}{u}</loc><lastmod>{TODAY}</lastmod></url>\n' for u in urls) + '</urlset>\n')
 (SITE / 'robots.txt').write_text(f'User-agent: *\nAllow: /\n\nSitemap: {DOMAIN}/sitemap.xml\n')
