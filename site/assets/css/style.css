@@ -662,6 +662,7 @@ a.section-label__link:hover, a.section-label__link:focus-visible { color: var(--
 .sub--3x2 { grid-template-columns: repeat(3, 1fr); grid-template-rows: repeat(2, minmax(0, 1fr)); }
 .sub--2x2, .sub--mp4 { grid-template-columns: 1fr 1fr; grid-template-rows: repeat(2, minmax(0, 1fr)); }
 .sub--mp4 .tile--wide { grid-column: 1 / -1; }
+.sub--web { grid-template-rows: repeat(3, minmax(0, 1fr)); }  /* Websites: three screenshots stacked next to the video */
 
 /* packaging: a project heading above each scrolling row */
 .project--head { margin-bottom: 0; }
@@ -1253,6 +1254,11 @@ html:active-view-transition-type(back)::view-transition-new(*):only-child {
   .row--pk-trio > :last-child { grid-column: span 2; aspect-ratio: 1; }
   .row--pk-stack { grid-template-columns: 1fr; grid-template-rows: auto; aspect-ratio: auto; }
   .row--pk-stack > * { width: 100%; aspect-ratio: 407 / 221; }
+  /* Websites on phones: the video full width, its three screenshots side by side below it */
+  .row--web { grid-template-columns: 1fr; grid-template-rows: auto; aspect-ratio: auto; }
+  .row--web > .tile { width: 100%; aspect-ratio: 1440 / 900; }
+  .sub--web { grid-template-columns: repeat(3, 1fr); grid-template-rows: auto; }
+  .sub--web > * { width: 100%; aspect-ratio: 1440 / 900; }
   .row--stack {
     grid-template-columns: 1fr;
     grid-template-rows: repeat(2, minmax(0, 1fr));
