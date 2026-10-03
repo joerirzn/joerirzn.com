@@ -96,6 +96,24 @@
     });
   });
 
+  // Section links (menu, footer, hero arrow): glide to the section without putting #work etc. in the
+  // address bar. Arriving from another page via /#work still lands there; the hash is tidied up after.
+  doc.addEventListener('click', (e) => {
+    if (e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+    const a = e.target.closest('a[href*="#"]');
+    if (!a || a.classList.contains('skip-link')) return;
+    const url = new URL(a.href, location.href);
+    if (url.origin !== location.origin || url.pathname !== location.pathname || url.hash.length < 2) return;
+    const target = doc.getElementById(decodeURIComponent(url.hash.slice(1)));
+    if (!target) return;
+    e.preventDefault();
+    target.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth' });
+  });
+  if (location.hash.length > 1) {
+    const tidy = () => setTimeout(() => history.replaceState(history.state, '', location.pathname + location.search), 0);
+    if (doc.readyState === 'complete') tidy(); else addEventListener('load', tidy);
+  }
+
   // Scroll reveal: elements below the fold fade + rise in when they enter the viewport.
   // Anything already on screen at load stays as is (no clash with page transitions or the hero).
   const REVEAL = [
