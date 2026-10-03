@@ -26,6 +26,7 @@
   --radius: calc(20 * var(--u));
   --radius-s: calc(5 * var(--u));
   --header-h: calc(30 * var(--u));
+  --pill-h: max(32px, calc(23 * var(--u) + 2px));  /* floating menu + Get in touch: same height as the Connect buttons */
   --fs-s: max(calc(8 * var(--u)), 10px);
   --bg: #000;
   --fg: #999;
@@ -108,7 +109,7 @@ button { font: inherit; color: inherit; }
   pointer-events: none;
 }
 .site-header__inner {
-  width: var(--w); height: calc(26 * var(--u));
+  width: var(--w); height: var(--pill-h);
   margin: 0 auto;
   padding: 0 calc(16 * var(--u));
   display: flex; align-items: center; justify-content: space-between;
@@ -219,7 +220,7 @@ button { font: inherit; color: inherit; }
 }
 .quick-contact__toggle {
   display: flex; align-items: center; gap: calc(7 * var(--u));
-  min-height: max(32px, calc(23 * var(--u) + 2px));  /* same size as the Connect buttons (their 13u icon + padding + border) */
+  min-height: var(--pill-h);
   padding: calc(5 * var(--u)) calc(19 * var(--u)) calc(5 * var(--u)) calc(18 * var(--u));
   border-radius: 999px;
   line-height: 1.2;  /* text size: same as the menu (see the small caps labels rule) */
@@ -371,7 +372,7 @@ button { font: inherit; color: inherit; }
 
 /* ------------------------------------------------------------------ main spacing */
 main { padding-bottom: 0; }
-body:not(.page-home) main { padding-top: calc(66 * var(--u)); }  /* floating menu (10 + 26) + 30 */
+body:not(.page-home) main { padding-top: calc(40 * var(--u) + var(--pill-h)); }  /* floating menu (10 + its height) + 30 */
 
 /* ------------------------------------------------------------------ hero */
 .hero {
